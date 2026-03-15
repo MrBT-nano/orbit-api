@@ -1,13 +1,19 @@
-```mermaid
 erDiagram
     %% ==========================================
     %% ANALYTICS & PREDICTION COLLECTIONS (MongoDB)
     %% ==========================================
     %% Optimized for High-Volume Event Ingestion
 
+    user_profiles {
+        ObjectId _id PK
+        UUID user_id UK "Reference to RDBMS User"
+        timestamp last_active
+        object behavioral_segments
+    }
+
     user_events {
         ObjectId _id PK
-        UUID user_id
+        UUID user_id "Reference to RDBMS User"
         string event_type "CLICK, VIEW, TRANSACTION_START"
         string feature_id "dashboard, crypto_link, budget_planner"
         string platform "WEB, MOBILE, DESKTOP"
@@ -17,7 +23,7 @@ erDiagram
 
     search_logs {
         ObjectId _id PK
-        UUID user_id
+        UUID user_id "Reference to RDBMS User"
         string query
         string category_filter
         array results_clicked
@@ -38,14 +44,13 @@ erDiagram
 
     recommendation_profiles {
         ObjectId _id PK
-        UUID user_id UK
+        UUID user_id UK "Reference to RDBMS User"
         array top_clicked_features
         array frequent_search_terms
         object predictive_scores "next_best_action"
         timestamp last_computed
     }
 
-    user_events }o--|| user_profiles : "tracked_for"
-    search_logs }o--|| user_profiles : "generated_by"
+    user_profiles ||--o{ user_events : "tracked_for"
+    user_profiles ||--o{ search_logs : "generated_by"
     user_profiles ||--o| recommendation_profiles : "has"
-```

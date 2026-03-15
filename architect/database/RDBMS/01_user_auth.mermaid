@@ -1,65 +1,22 @@
 erDiagram
-    %% ============================================================
-    %% Module 1: User & Auth (Clerk Integration)
-    %% ============================================================
-
+    %% Core User Identity integrated with Clerk Auth
     users {
-        uuid id PK
+        uuid id PK "Internal system ID"
         string clerk_user_id UK "Unique ID from Clerk Auth"
         string email UK
         string first_name
         string last_name
-        string base_currency "e.g. USD, EUR, THB"
-        string timezone "e.g. Asia/Bangkok"
-        string status "ACTIVE, SUSPENDED, DEACTIVATED"
-        timestamp created_at
-        timestamp updated_at
-        timestamp deleted_at "Soft delete"
-    }
-
-    user_addresses {
-        uuid id PK
-        uuid user_id FK
-        string label "e.g. Home, Work, Billing"
-        string address_line1
-        string address_line2
-        string city
-        string state
-        string postal_code
-        string country_code "ISO 3166-1 alpha-2"
-        boolean is_default
+        string base_currency "e.g., USD, EUR"
         timestamp created_at
         timestamp updated_at
     }
 
     user_preferences {
         uuid id PK
-        uuid user_id FK "One-to-one, unique"
+        uuid user_id FK
         boolean dark_mode
-        string language "e.g. en, th"
-        string date_format "e.g. DD/MM/YYYY"
-        string number_format "e.g. 1,234.56"
-        boolean biometric_enabled "Fingerprint / Face ID"
-        boolean lab_3d_charts "Orbit Lab: 3D Charts"
-        boolean lab_ai_suggest "Orbit Lab: AI Suggest"
-        boolean lab_smart_alert "Orbit Lab: Smart Alert"
-        timestamp created_at
+        string language
         timestamp updated_at
     }
 
-    notification_preferences {
-        uuid id PK
-        uuid user_id FK "One-to-one, unique"
-        boolean email_enabled
-        boolean push_enabled
-        boolean budget_alerts
-        boolean bill_reminders
-        decimal large_transaction_threshold "DECIMAL(19,4)"
-        timestamp created_at
-        timestamp updated_at
-    }
-
-    %% Relationships
-    users ||--o{ user_addresses : "has"
     users ||--o| user_preferences : "has"
-    users ||--o| notification_preferences : "has"
