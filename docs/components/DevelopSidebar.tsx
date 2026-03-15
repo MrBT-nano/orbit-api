@@ -111,10 +111,12 @@ export default function DevelopSidebar({
               active={isActive(`/${locale}/develop/getting-started`)}
             />
             <SidebarLink
-              href={`/${locale}/develop/getting-started`}
+              href="#"
               icon={Key}
               label={t("authentication")}
               active={false}
+              disabled
+              badge={t("soon")}
             />
           </div>
         </div>
@@ -241,10 +243,12 @@ export default function DevelopSidebar({
               active={isActive(`/${locale}/develop/architecture`)}
             />
             <SidebarLink
-              href={`/${locale}/develop/architecture`}
+              href="#"
               icon={Database}
               label={t("database")}
               active={false}
+              disabled
+              badge={t("soon")}
             />
           </div>
         </div>

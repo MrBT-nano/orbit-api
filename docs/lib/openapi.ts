@@ -37,6 +37,7 @@ export function resolveSchema(ref: string) {
   const parts = ref.replace("#/", "").split("/");
   let current: any = spec;
   for (const part of parts) {
+    if (current == null) return undefined;
     current = current[part];
   }
   return current;

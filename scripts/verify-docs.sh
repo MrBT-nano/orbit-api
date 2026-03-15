@@ -27,9 +27,9 @@ fi
 # This uses grep to find RequestMapping, GetMapping, PostMapping, etc.
 CODE_ENDPOINTS=$(grep -hroE "@(Get|Post|Put|Delete|Patch|Request)Mapping" src/main/java | wc -l)
 
-# Use jq (or grep if jq is unavailable) to count paths in the generated OpenAPI spec
-# We use a simple grep on the generated JSON to count unique API paths as a proxy
-DOC_ENDPOINTS=$(grep -o '"/.*": {' docs/public/openapi.json | wc -l || echo "0")
+# Count documented paths in the OpenAPI spec
+# Use non-greedy character class to correctly match each path on minified JSON
+DOC_ENDPOINTS=$(grep -oE '"\/[^"]+"\s*:\s*\{' docs/public/openapi.json | wc -l || echo "0")
 
 echo "📊 Metrics:"
 echo "   - Controllers found in code: $(echo "$CONTROLLERS" | wc -l | tr -d ' ')"

@@ -62,6 +62,7 @@ const productResults: SearchResult[] = [
 
 export default function SearchDialog({ locale }: { locale: string }) {
   const t = useTranslations("nav");
+  const ts = useTranslations("search");
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
@@ -115,7 +116,7 @@ export default function SearchDialog({ locale }: { locale: string }) {
           showCloseButton={false}
           className="bg-[#1A1528] border-white/8 p-0 max-w-lg gap-0"
         >
-          <DialogTitle className="sr-only">Search documentation</DialogTitle>
+          <DialogTitle className="sr-only">{ts("title")}</DialogTitle>
           <div className="flex items-center gap-3 px-4 py-3 border-b border-white/6">
             <Search className="size-4 text-[#9B8FB8] shrink-0" />
             <input
@@ -136,7 +137,7 @@ export default function SearchDialog({ locale }: { locale: string }) {
             {filteredDevelop.length > 0 && (
               <div className="mb-2">
                 <p className="text-xs font-semibold uppercase tracking-wider text-[#9B8FB8] px-3 py-2">
-                  Develop
+                  {ts("develop_section")}
                 </p>
                 {filteredDevelop.map((result, i) => (
                   <button
@@ -166,7 +167,7 @@ export default function SearchDialog({ locale }: { locale: string }) {
             {filteredProduct.length > 0 && (
               <div>
                 <p className="text-xs font-semibold uppercase tracking-wider text-[#9B8FB8] px-3 py-2">
-                  Product
+                  {ts("product_section")}
                 </p>
                 {filteredProduct.map((result, i) => {
                   const globalIndex = filteredDevelop.length + i;
@@ -198,7 +199,7 @@ export default function SearchDialog({ locale }: { locale: string }) {
             )}
             {allResults.length === 0 && (
               <div className="text-center py-8 text-sm text-[#9B8FB8]">
-                No results found
+                {ts("no_results")}
               </div>
             )}
           </div>

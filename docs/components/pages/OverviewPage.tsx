@@ -1,18 +1,20 @@
 "use client";
 
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import {
   Landmark,
   Globe,
   ShieldCheck,
   Sparkles,
 } from "lucide-react";
+import { basePath } from "@/lib/basePath";
 import Breadcrumb from "@/components/Breadcrumb";
 import Callout from "@/components/Callout";
 import PageNav from "@/components/PageNav";
 
 export default function OverviewPage() {
   const locale = useLocale();
+  const t = useTranslations("pages");
 
   const capabilities = [
     {
@@ -50,45 +52,34 @@ export default function OverviewPage() {
       <Breadcrumb
         items={[
           { label: "Product", href: `/${locale}/product/overview` },
-          { label: "Overview" },
+          { label: t("overview_title") },
         ]}
       />
 
       <div>
         <h1 className="text-3xl font-bold text-[#F0EDF5] mb-2">
-          What is Orbit?
+          {t("overview_title")}
         </h1>
         <p className="text-[#9B8FB8] leading-relaxed">
-          Orbit is a Personal Finance Management System built for developers who
-          want full control over their financial data through a clean, extensible
-          API.
+          {t("overview_desc")}
         </p>
       </div>
 
       {/* Hero Card */}
       <div className="bg-gradient-to-br from-[#5DFDCB]/8 to-[#B07AFF]/8 border border-[#5DFDCB]/12 rounded-2xl p-8 text-center">
-        <div className="size-16 rounded-2xl bg-gradient-to-br from-[#5DFDCB] to-[#B07AFF] flex items-center justify-center mx-auto mb-4">
-          <svg
-            width="28"
-            height="28"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="white"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <circle cx="12" cy="12" r="10" />
-            <circle cx="12" cy="12" r="4" />
-          </svg>
-        </div>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={`${basePath}/orbit-logo.svg`}
+          alt="Orbit"
+          width={64}
+          height={64}
+          className="size-16 mx-auto mb-4"
+        />
         <h2 className="text-2xl font-bold text-[#F0EDF5] mb-2">
-          Your Financial Universe, Simplified
+          {t("hero_title")}
         </h2>
         <p className="text-[#9B8FB8] max-w-lg mx-auto text-sm leading-relaxed">
-          A rigorous, Hexagonal Architecture-based API platform for managing
-          ledgers, multi-currency assets, crypto tracking, and smart financial
-          rules.
+          {t("hero_desc")}
         </p>
       </div>
 
@@ -98,7 +89,7 @@ export default function OverviewPage() {
           id="key-capabilities"
           className="text-xl font-semibold text-[#F0EDF5] mb-4"
         >
-          Key Capabilities
+          {t("key_capabilities")}
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {capabilities.map((cap) => (

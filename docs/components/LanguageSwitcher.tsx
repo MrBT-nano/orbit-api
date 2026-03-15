@@ -15,7 +15,10 @@ export default function LanguageSwitcher({ locale }: { locale: string }) {
   const nextLocale = locale === "en" ? "th" : "en";
 
   const handleSwitch = () => {
-    const newPath = pathname.replace(`/${locale}`, `/${nextLocale}`);
+    const newPath = pathname.replace(
+      new RegExp(`^/${locale}(?=/|$)`),
+      `/${nextLocale}`
+    );
     router.push(newPath);
   };
 

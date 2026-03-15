@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Menu } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { basePath } from "@/lib/basePath";
 import SearchDialog from "@/components/SearchDialog";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import {
@@ -28,21 +29,14 @@ export default function Navbar({ locale }: { locale: string }) {
       {/* Left */}
       <div className="flex items-center gap-6">
         <Link href={`/${locale}`} className="flex items-center gap-2.5">
-          <div className="size-8 rounded-lg bg-gradient-to-br from-[#5DFDCB] to-[#B07AFF] flex items-center justify-center">
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="white"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <circle cx="12" cy="12" r="10" />
-              <circle cx="12" cy="12" r="4" />
-            </svg>
-          </div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={`${basePath}/orbit-logo.svg`}
+            alt="Orbit"
+            width={32}
+            height={32}
+            className="size-8"
+          />
           <span className="font-bold text-[#F0EDF5]">Orbit</span>
         </Link>
 

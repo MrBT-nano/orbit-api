@@ -61,16 +61,20 @@ jobs:
 
       - name: Start Application in Background
         run: |
-          nohup ./mvnw spring-boot:run &
+          nohup ./mvnw spring-boot:run -Dspring-boot.run.profiles=test &
           echo "Waiting for app to start..."
-          while ! curl -s http://localhost:8080/v3/api-docs > /dev/null; do
+          for i in $(seq 1 30); do
+            if curl -sf http://localhost:8080/v3/api-docs > /dev/null 2>&1; then
+              echo "App is up!"
+              break
+            fi
             sleep 5
           done
-          echo "App is up!"
 
       - name: Download OpenAPI JSON
-        # Download the openapi.json directly into the Next.js public directory
-        run: curl -s http://localhost:8080/v3/api-docs > docs/public/openapi.json
+        run: |
+          curl -sf -H "Accept: application/json" http://localhost:8080/v3/api-docs > docs/public/openapi.json
+          echo "Downloaded openapi.json ($(wc -c < docs/public/openapi.json) bytes)"
 
       - name: Verify API Documentation Coverage
         # Run our custom script to ensure the OpenAPI JSON actually captured the endpoints

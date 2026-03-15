@@ -1,6 +1,6 @@
 "use client";
 
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import {
   Landmark,
   CreditCard,
@@ -17,6 +17,7 @@ import PageNav from "@/components/PageNav";
 
 export default function FeaturesPage() {
   const locale = useLocale();
+  const t = useTranslations("pages");
 
   const accountTypes = [
     {
@@ -98,15 +99,14 @@ export default function FeaturesPage() {
       <Breadcrumb
         items={[
           { label: "Product", href: `/${locale}/product/overview` },
-          { label: "Features" },
+          { label: t("features_title") },
         ]}
       />
 
       <div>
-        <h1 className="text-3xl font-bold text-[#F0EDF5] mb-2">Features</h1>
+        <h1 className="text-3xl font-bold text-[#F0EDF5] mb-2">{t("features_title")}</h1>
         <p className="text-[#9B8FB8] leading-relaxed">
-          A comprehensive look at what Orbit offers for personal finance
-          management.
+          {t("features_desc")}
         </p>
       </div>
 
@@ -116,11 +116,10 @@ export default function FeaturesPage() {
           id="account-types"
           className="text-xl font-semibold text-[#F0EDF5] mb-4"
         >
-          Account Types
+          {t("account_types")}
         </h2>
         <p className="text-sm text-[#9B8FB8] mb-4">
-          Orbit supports five account types to cover every aspect of your
-          financial life.
+          {t("account_types_desc")}
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {accountTypes.map((account) => (
@@ -161,11 +160,10 @@ export default function FeaturesPage() {
           id="multi-currency"
           className="text-xl font-semibold text-[#F0EDF5] mb-4"
         >
-          Multi-Currency Support
+          {t("multi_currency")}
         </h2>
         <p className="text-sm text-[#9B8FB8] mb-4">
-          Track assets in any fiat currency or cryptocurrency. Orbit supports
-          automatic conversion with live exchange rates.
+          {t("multi_currency_desc")}
         </p>
         <div className="flex flex-wrap gap-3">
           {currencies.map((currency) => (
@@ -196,10 +194,10 @@ export default function FeaturesPage() {
           id="security"
           className="text-xl font-semibold text-[#F0EDF5] mb-4"
         >
-          Security
+          {t("security_title")}
         </h2>
         <p className="text-sm text-[#9B8FB8] mb-4">
-          Enterprise-grade security baked into every layer of the stack.
+          {t("security_desc")}
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {securityFeatures.map((feature) => (

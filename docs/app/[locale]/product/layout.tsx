@@ -15,7 +15,7 @@ export default async function ProductLayout({
   return (
     <div className="flex flex-1 relative">
       <ProductSidebar locale={locale} />
-      <main className="flex-1 min-w-0 px-4 sm:px-6 lg:px-10 py-8 max-w-4xl">
+      <main className="flex-1 min-w-0 px-4 sm:px-6 lg:px-10 py-8">
         {children}
       </main>
       <OnPageToc />

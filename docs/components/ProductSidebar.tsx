@@ -21,12 +21,30 @@ function SidebarLink({
   icon: Icon,
   label,
   active,
+  disabled,
+  badge,
 }: {
   href: string;
   icon: React.ElementType;
   label: string;
   active: boolean;
+  disabled?: boolean;
+  badge?: string;
 }) {
+  if (disabled) {
+    return (
+      <div className="flex items-center gap-2.5 px-3 py-1.5 text-sm text-[#9B8FB8]/50 rounded-lg cursor-not-allowed">
+        <Icon className="size-4" />
+        <span>{label}</span>
+        {badge && (
+          <span className="ml-auto text-[10px] font-mono bg-[#2A1F3D]/50 text-[#9B8FB8] px-1.5 py-0.5 rounded">
+            {badge}
+          </span>
+        )}
+      </div>
+    );
+  }
+
   return (
     <Link
       href={href}
@@ -51,6 +69,7 @@ export default function ProductSidebar({
   mobile?: boolean;
 }) {
   const t = useTranslations("product_sidebar");
+  const st = useTranslations("sidebar");
   const pathname = usePathname();
 
   const isActive = (path: string) => pathname === path;
@@ -71,10 +90,12 @@ export default function ProductSidebar({
               active={isActive(`/${locale}/product/overview`)}
             />
             <SidebarLink
-              href={`/${locale}/product/overview`}
+              href="#"
               icon={Map}
               label={t("roadmap")}
               active={false}
+              disabled
+              badge={st("soon")}
             />
           </div>
         </div>
@@ -92,22 +113,28 @@ export default function ProductSidebar({
               active={isActive(`/${locale}/product/features`)}
             />
             <SidebarLink
-              href={`/${locale}/product/features`}
+              href="#"
               icon={TrendingUp}
               label={t("budget_tracking")}
               active={false}
+              disabled
+              badge={st("soon")}
             />
             <SidebarLink
-              href={`/${locale}/product/features`}
+              href="#"
               icon={Bitcoin}
               label={t("crypto_support")}
               active={false}
+              disabled
+              badge={st("soon")}
             />
             <SidebarLink
-              href={`/${locale}/product/features`}
+              href="#"
               icon={PieChart}
               label={t("analytics")}
               active={false}
+              disabled
+              badge={st("soon")}
             />
           </div>
         </div>
@@ -119,16 +146,20 @@ export default function ProductSidebar({
           </p>
           <div className="space-y-0.5">
             <SidebarLink
-              href={`/${locale}/product/overview`}
+              href="#"
               icon={PlayCircle}
               label={t("getting_started")}
               active={false}
+              disabled
+              badge={st("soon")}
             />
             <SidebarLink
-              href={`/${locale}/product/overview`}
+              href="#"
               icon={HelpCircle}
               label={t("faq")}
               active={false}
+              disabled
+              badge={st("soon")}
             />
           </div>
         </div>

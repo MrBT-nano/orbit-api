@@ -17,33 +17,29 @@ export default function LandingPage() {
     {
       icon: Terminal,
       color: "#5DFDCB",
-      title: "REST API",
-      description:
-        "Clean, well-documented RESTful endpoints for every financial operation.",
+      title: t("feature_rest_api"),
+      description: t("feature_rest_api_desc"),
       href: `/${locale}/develop/api/users`,
     },
     {
       icon: Hexagon,
       color: "#B07AFF",
-      title: "Architecture",
-      description:
-        "Hexagonal architecture with strict boundary enforcement between layers.",
+      title: t("feature_architecture"),
+      description: t("feature_architecture_desc"),
       href: `/${locale}/develop/architecture`,
     },
     {
       icon: Bitcoin,
       color: "#FFB07A",
-      title: "Multi-Currency & Crypto",
-      description:
-        "Native support for fiat currencies and cryptocurrency tracking.",
+      title: t("feature_multi_currency"),
+      description: t("feature_multi_currency_desc"),
       href: `/${locale}/product/features`,
     },
     {
       icon: ShieldCheck,
       color: "#FF6B9D",
-      title: "Security",
-      description:
-        "Enterprise-grade security with Clerk SSO and Spring Security.",
+      title: t("feature_security"),
+      description: t("feature_security_desc"),
       href: `/${locale}/product/overview`,
     },
   ];
@@ -123,7 +119,7 @@ export default function LandingPage() {
 
       {/* Quick Start */}
       <section className="max-w-4xl mx-auto px-6 mt-12 pb-16">
-        <h2 className="text-2xl font-bold text-[#F0EDF5] mb-4">Quick Start</h2>
+        <h2 className="text-2xl font-bold text-[#F0EDF5] mb-4">{t("quick_start")}</h2>
         <div className="bg-[#0D0B1A] border border-white/6 rounded-xl overflow-hidden">
           {/* macOS dots header */}
           <div className="flex items-center gap-2 px-4 py-3 border-b border-white/6">

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { ArrowRight } from "lucide-react";
 import Breadcrumb from "@/components/Breadcrumb";
 import CodeBlock from "@/components/CodeBlock";
@@ -10,6 +10,7 @@ import PageNav from "@/components/PageNav";
 
 export default function GettingStartedPage() {
   const locale = useLocale();
+  const t = useTranslations("pages");
 
   const exploreLinks = [
     {
@@ -35,15 +36,14 @@ export default function GettingStartedPage() {
       <Breadcrumb
         items={[
           { label: "Develop", href: `/${locale}/develop/getting-started` },
-          { label: "Getting Started" },
+          { label: t("getting_started_title") },
         ]}
       />
 
       <div>
-        <h1 className="text-3xl font-bold text-[#F0EDF5] mb-2">Quick Start</h1>
+        <h1 className="text-3xl font-bold text-[#F0EDF5] mb-2">{t("getting_started_title")}</h1>
         <p className="text-[#9B8FB8] leading-relaxed">
-          Get up and running with the Orbit API in under 5 minutes. All you need
-          is Java 25 and Docker Desktop.
+          {t("getting_started_desc")}
         </p>
       </div>
 
@@ -53,7 +53,7 @@ export default function GettingStartedPage() {
           id="prerequisites"
           className="text-xl font-semibold text-[#F0EDF5] mb-4"
         >
-          Prerequisites
+          {t("prerequisites")}
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="bg-[#2A1F3D]/30 border border-white/6 rounded-xl p-4">
@@ -86,7 +86,7 @@ export default function GettingStartedPage() {
       {/* Setup */}
       <section>
         <h2 id="setup" className="text-xl font-semibold text-[#F0EDF5] mb-4">
-          Setup
+          {t("setup")}
         </h2>
         <CodeBlock
           tabs={[
@@ -118,7 +118,7 @@ cd orbit-api
           id="test-the-api"
           className="text-xl font-semibold text-[#F0EDF5] mb-4"
         >
-          Test the API
+          {t("test_api")}
         </h2>
         <CodeBlock
           tabs={[
@@ -149,7 +149,7 @@ cd orbit-api
           id="explore"
           className="text-xl font-semibold text-[#F0EDF5] mb-4"
         >
-          Explore
+          {t("explore")}
         </h2>
         <div className="space-y-3">
           {exploreLinks.map((link) => {

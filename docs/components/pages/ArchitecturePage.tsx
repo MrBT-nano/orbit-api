@@ -1,6 +1,6 @@
 "use client";
 
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import {
   Package,
   Hexagon,
@@ -15,6 +15,7 @@ import PageNav from "@/components/PageNav";
 
 export default function ArchitecturePage() {
   const locale = useLocale();
+  const t = useTranslations("pages");
 
   const principles = [
     {
@@ -52,18 +53,16 @@ export default function ArchitecturePage() {
       <Breadcrumb
         items={[
           { label: "Develop", href: `/${locale}/develop/getting-started` },
-          { label: "Architecture" },
+          { label: t("architecture_title") },
         ]}
       />
 
       <div>
         <h1 className="text-3xl font-bold text-[#F0EDF5] mb-2">
-          System Architecture
+          {t("architecture_title")}
         </h1>
         <p className="text-[#9B8FB8] leading-relaxed">
-          Orbit follows a Hexagonal Architecture (Ports &amp; Adapters) organized
-          as &ldquo;Package by Feature&rdquo; to maximize cohesion and minimize
-          coupling between modules.
+          {t("architecture_desc")}
         </p>
       </div>
 
@@ -73,7 +72,7 @@ export default function ArchitecturePage() {
           id="core-principles"
           className="text-xl font-semibold text-[#F0EDF5] mb-4"
         >
-          Core Principles
+          {t("core_principles")}
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {principles.map((p) => (
@@ -104,7 +103,7 @@ export default function ArchitecturePage() {
           id="database-strategy"
           className="text-xl font-semibold text-[#F0EDF5] mb-4"
         >
-          Database Strategy
+          {t("database_strategy")}
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="bg-[#2A1F3D]/30 border border-white/6 rounded-2xl p-5">
@@ -152,7 +151,7 @@ export default function ArchitecturePage() {
           id="module-structure"
           className="text-xl font-semibold text-[#F0EDF5] mb-4"
         >
-          Feature Module Structure
+          {t("module_structure")}
         </h2>
         <p className="text-sm text-[#9B8FB8] mb-4">
           Every feature module under{" "}

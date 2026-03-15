@@ -1,6 +1,6 @@
 "use client";
 
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Breadcrumb from "@/components/Breadcrumb";
 import ApiEndpoint from "@/components/ApiEndpoint";
 import ParamTable from "@/components/ParamTable";
@@ -9,6 +9,8 @@ import PageNav from "@/components/PageNav";
 
 export default function AccountsAPIPage() {
   const locale = useLocale();
+  const t = useTranslations("pages");
+  const ta = useTranslations("api");
 
   return (
     <div className="space-y-8">
@@ -16,17 +18,16 @@ export default function AccountsAPIPage() {
         items={[
           { label: "Develop", href: `/${locale}/develop/getting-started` },
           { label: "API Reference" },
-          { label: "Accounts" },
+          { label: t("accounts_api_title").replace(" API", "").replace("API ", "") },
         ]}
       />
 
       <div>
         <h1 className="text-3xl font-bold text-[#F0EDF5] mb-2">
-          Accounts API
+          {t("accounts_api_title")}
         </h1>
         <p className="text-[#9B8FB8] leading-relaxed">
-          Ledger account management for tracking fiat and crypto assets. Create
-          accounts of various types and retrieve them by ID or user.
+          {t("accounts_api_desc")}
         </p>
       </div>
 
@@ -36,7 +37,7 @@ export default function AccountsAPIPage() {
           id="create-account"
           className="text-xl font-semibold text-[#F0EDF5]"
         >
-          Create a New Account
+          {t("create_account")}
         </h2>
         <ApiEndpoint
           method="POST"
@@ -49,7 +50,7 @@ export default function AccountsAPIPage() {
                 id="create-account-body"
                 className="text-sm font-semibold text-[#9B8FB8] uppercase tracking-wider mb-3"
               >
-                Request Body
+                {ta("request_body")}
               </h3>
               <ParamTable
                 params={[
@@ -107,7 +108,7 @@ export default function AccountsAPIPage() {
                 id="create-account-example"
                 className="text-sm font-semibold text-[#9B8FB8] uppercase tracking-wider mb-3"
               >
-                Example Request
+                {ta("example_request")}
               </h3>
               <CodeBlock
                 tabs={[
@@ -168,7 +169,7 @@ print(response.json())`,
                 id="create-account-response"
                 className="text-sm font-semibold text-[#9B8FB8] uppercase tracking-wider mb-3"
               >
-                Response
+                {ta("response")}
               </h3>
               <CodeBlock
                 response
@@ -206,7 +207,7 @@ print(response.json())`,
           id="get-account-by-id"
           className="text-xl font-semibold text-[#F0EDF5]"
         >
-          Get Account by ID
+          {t("get_by_id")}
         </h2>
         <ApiEndpoint
           method="GET"
@@ -219,7 +220,7 @@ print(response.json())`,
                 id="get-account-params"
                 className="text-sm font-semibold text-[#9B8FB8] uppercase tracking-wider mb-3"
               >
-                Path Parameters
+                {ta("path_params")}
               </h3>
               <ParamTable
                 params={[
@@ -238,7 +239,7 @@ print(response.json())`,
                 id="get-account-example"
                 className="text-sm font-semibold text-[#9B8FB8] uppercase tracking-wider mb-3"
               >
-                Example Request
+                {ta("example_request")}
               </h3>
               <CodeBlock
                 tabs={[
@@ -274,7 +275,7 @@ print(response.json())`,
                 id="get-account-response"
                 className="text-sm font-semibold text-[#9B8FB8] uppercase tracking-wider mb-3"
               >
-                Response
+                {ta("response")}
               </h3>
               <CodeBlock
                 response
@@ -312,7 +313,7 @@ print(response.json())`,
           id="get-accounts-by-user"
           className="text-xl font-semibold text-[#F0EDF5]"
         >
-          Get All Accounts for a User
+          {t("get_by_user")}
         </h2>
         <ApiEndpoint
           method="GET"
@@ -325,7 +326,7 @@ print(response.json())`,
                 id="get-user-accounts-params"
                 className="text-sm font-semibold text-[#9B8FB8] uppercase tracking-wider mb-3"
               >
-                Path Parameters
+                {ta("path_params")}
               </h3>
               <ParamTable
                 params={[
@@ -345,7 +346,7 @@ print(response.json())`,
                 id="get-user-accounts-example"
                 className="text-sm font-semibold text-[#9B8FB8] uppercase tracking-wider mb-3"
               >
-                Example Request
+                {ta("example_request")}
               </h3>
               <CodeBlock
                 tabs={[
@@ -381,7 +382,7 @@ print(response.json())`,
                 id="get-user-accounts-response"
                 className="text-sm font-semibold text-[#9B8FB8] uppercase tracking-wider mb-3"
               >
-                Response
+                {ta("response")}
               </h3>
               <CodeBlock
                 response

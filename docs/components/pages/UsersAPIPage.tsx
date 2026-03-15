@@ -1,6 +1,6 @@
 "use client";
 
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Breadcrumb from "@/components/Breadcrumb";
 import ApiEndpoint from "@/components/ApiEndpoint";
 import ParamTable from "@/components/ParamTable";
@@ -9,30 +9,30 @@ import PageNav from "@/components/PageNav";
 
 export default function UsersAPIPage() {
   const locale = useLocale();
+  const t = useTranslations("pages");
+  const ta = useTranslations("api");
 
   return (
     <div className="space-y-8">
       <Breadcrumb
         items={[
           { label: "Develop", href: `/${locale}/develop/getting-started` },
-          { label: "API Reference" },
-          { label: "Users" },
+          { label: ta("request_body").replace(" Body", " Reference").replace("เนื้อหาคำร้อง", "API อ้างอิง") || "API Reference" },
+          { label: t("users_api_title").replace(" API", "").replace("API ", "") },
         ]}
       />
 
       <div>
-        <h1 className="text-3xl font-bold text-[#F0EDF5] mb-2">Users API</h1>
+        <h1 className="text-3xl font-bold text-[#F0EDF5] mb-2">{t("users_api_title")}</h1>
         <p className="text-[#9B8FB8] leading-relaxed">
-          User management and Clerk synchronization endpoints. These endpoints
-          handle registering new users from Clerk webhooks and retrieving user
-          profiles.
+          {t("users_api_desc")}
         </p>
       </div>
 
       {/* POST /api/v1/users */}
       <div className="space-y-4">
         <h2 id="register-user" className="text-xl font-semibold text-[#F0EDF5]">
-          Register a New User
+          {t("register_user")}
         </h2>
         <ApiEndpoint
           method="POST"
@@ -42,7 +42,7 @@ export default function UsersAPIPage() {
           <div className="space-y-6">
             <div>
               <h3 id="register-request-body" className="text-sm font-semibold text-[#9B8FB8] uppercase tracking-wider mb-3">
-                Request Body
+                {ta("request_body")}
               </h3>
               <ParamTable
                 params={[
@@ -90,7 +90,7 @@ export default function UsersAPIPage() {
 
             <div>
               <h3 id="register-example" className="text-sm font-semibold text-[#9B8FB8] uppercase tracking-wider mb-3">
-                Example Request
+                {ta("example_request")}
               </h3>
               <CodeBlock
                 tabs={[
@@ -151,7 +151,7 @@ print(response.json())`,
 
             <div>
               <h3 id="register-response" className="text-sm font-semibold text-[#9B8FB8] uppercase tracking-wider mb-3">
-                Response
+                {ta("response")}
               </h3>
               <CodeBlock
                 response
@@ -187,7 +187,7 @@ print(response.json())`,
           id="get-user-by-clerk-id"
           className="text-xl font-semibold text-[#F0EDF5]"
         >
-          Get User by Clerk ID
+          {t("get_by_clerk_id")}
         </h2>
         <ApiEndpoint
           method="GET"
@@ -197,7 +197,7 @@ print(response.json())`,
           <div className="space-y-6">
             <div>
               <h3 id="get-user-path-params" className="text-sm font-semibold text-[#9B8FB8] uppercase tracking-wider mb-3">
-                Path Parameters
+                {ta("path_params")}
               </h3>
               <ParamTable
                 params={[
@@ -214,7 +214,7 @@ print(response.json())`,
 
             <div>
               <h3 id="get-user-example" className="text-sm font-semibold text-[#9B8FB8] uppercase tracking-wider mb-3">
-                Example Request
+                {ta("example_request")}
               </h3>
               <CodeBlock
                 tabs={[
@@ -247,7 +247,7 @@ print(response.json())`,
 
             <div>
               <h3 id="get-user-response" className="text-sm font-semibold text-[#9B8FB8] uppercase tracking-wider mb-3">
-                Response
+                {ta("response")}
               </h3>
               <CodeBlock
                 response
