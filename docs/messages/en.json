@@ -1,0 +1,63 @@
+{
+  "nav": {
+    "develop": "Develop",
+    "product": "Product",
+    "search": "Search documentation...",
+    "shortcut": "⌘K"
+  },
+  "landing": {
+    "badge": "v1.0.0 — NOW LIVE",
+    "title_line1": "Build the future of",
+    "title_line2": "Personal Finance",
+    "description": "The Orbit Platform provides a rigorous, Hexagonal Architecture-based API for ledgers, crypto tracking, and smart financial rules.",
+    "cta_build": "Start Building",
+    "cta_docs": "Read Docs"
+  },
+  "sidebar": {
+    "getting_started": "Getting Started",
+    "quick_start": "Quick Start",
+    "authentication": "Authentication",
+    "api_reference": "API Reference",
+    "users": "Users",
+    "accounts": "Accounts",
+    "transactions": "Transactions",
+    "payments": "Payments",
+    "architecture": "Architecture",
+    "system_design": "System Design",
+    "database": "Database Strategy",
+    "soon": "Soon"
+  },
+  "product_sidebar": {
+    "overview": "Overview",
+    "what_is_orbit": "What is Orbit?",
+    "roadmap": "Roadmap",
+    "features": "Features",
+    "account_management": "Account Management",
+    "budget_tracking": "Budget Tracking",
+    "crypto_support": "Crypto Support",
+    "analytics": "Analytics",
+    "guides": "Guides",
+    "getting_started": "Getting Started",
+    "faq": "FAQ"
+  },
+  "toc": {
+    "on_this_page": "On this page"
+  },
+  "api": {
+    "request_body": "Request Body",
+    "path_params": "Path Parameters",
+    "query_params": "Query Parameters",
+    "response": "Response",
+    "example_request": "Example Request",
+    "field": "Field",
+    "type": "Type",
+    "required": "required",
+    "optional": "optional",
+    "description": "Description",
+    "try_it": "Try it"
+  },
+  "common": {
+    "previous": "Previous",
+    "next": "Next"
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "nav": {
+    "develop": "สำหรับนักพัฒนา",
+    "product": "ผลิตภัณฑ์",
+    "search": "ค้นหาเอกสาร...",
+    "shortcut": "⌘K"
+  },
+  "landing": {
+    "badge": "v1.0.0 — เปิดให้บริการแล้ว",
+    "title_line1": "สร้างอนาคตของ",
+    "title_line2": "การเงินส่วนบุคคล",
+    "description": "แพลตฟอร์ม Orbit มอบ API ระดับ Hexagonal Architecture สำหรับบัญชีแยกประเภท การติดตามคริปโต และกฎทางการเงินอัจฉริยะ",
+    "cta_build": "เริ่มพัฒนา",
+    "cta_docs": "อ่านเอกสาร"
+  },
+  "sidebar": {
+    "getting_started": "เริ่มต้นใช้งาน",
+    "quick_start": "เริ่มต้นด่วน",
+    "authentication": "การยืนยันตัวตน",
+    "api_reference": "API อ้างอิง",
+    "users": "ผู้ใช้งาน",
+    "accounts": "บัญชี",
+    "transactions": "ธุรกรรม",
+    "payments": "การชำระเงิน",
+    "architecture": "สถาปัตยกรรม",
+    "system_design": "การออกแบบระบบ",
+    "database": "กลยุทธ์ฐานข้อมูล",
+    "soon": "เร็วๆ นี้"
+  },
+  "product_sidebar": {
+    "overview": "ภาพรวม",
+    "what_is_orbit": "Orbit คืออะไร?",
+    "roadmap": "แผนงาน",
+    "features": "ฟีเจอร์",
+    "account_management": "จัดการบัญชี",
+    "budget_tracking": "ติดตามงบประมาณ",
+    "crypto_support": "รองรับคริปโต",
+    "analytics": "วิเคราะห์ข้อมูล",
+    "guides": "คู่มือ",
+    "getting_started": "เริ่มต้นใช้งาน",
+    "faq": "คำถามที่พบบ่อย"
+  },
+  "toc": {
+    "on_this_page": "ในหน้านี้"
+  },
+  "api": {
+    "request_body": "เนื้อหาคำร้อง",
+    "path_params": "พารามิเตอร์เส้นทาง",
+    "query_params": "พารามิเตอร์การค้นหา",
+    "response": "การตอบกลับ",
+    "example_request": "ตัวอย่างคำร้อง",
+    "field": "ฟิลด์",
+    "type": "ชนิด",
+    "required": "จำเป็น",
+    "optional": "ไม่บังคับ",
+    "description": "คำอธิบาย",
+    "try_it": "ทดลองใช้"
+  },
+  "common": {
+    "previous": "ก่อนหน้า",
+    "next": "ถัดไป"
+  }
+}

@@ -1,8 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 @plugin "daisyui";
+@plugin "@tailwindcss/typography";
 
 :root {
-  /* Default to Light Mode values from Design System */
+  --background: #0D0B1A;
+  --foreground: #F0EDF5;
+  --primary: #5DFDCB;
+  --secondary: #B07AFF;
+  --accent: #FFB07A;
+  --neutral: #2A1F3D;
+  --base-100: #1A1528;
+  --base-200: #0D0B1A;
+  --base-300: #2A1F3D;
+  --info: #B07AFF;
+  --success: #5DFDCB;
+  --warning: #FFB07A;
+  --error: #FF6B9D;
+  --muted: #9B8FB8;
+  --card: #1A1528;
+  --card-foreground: #F0EDF5;
+  --sidebar: #12101E;
+}
+
+[data-theme="light"] {
   --background: #F8F5FF;
   --foreground: #1A1528;
   --primary: #6C3AE0;
@@ -13,30 +34,13 @@
   --base-200: #F8F5FF;
   --base-300: #EEEBF5;
   --info: #9B6FE8;
-  --success: #5DFDCB; /* Keeping the cyan from dark mode as success */
+  --success: #5DFDCB;
   --warning: #E8913A;
   --error: #E8457A;
   --muted: #6B5F82;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    /* Dark Mode values from Design System */
-    --background: #0D0B1A;
-    --foreground: #F0EDF5;
-    --primary: #5DFDCB;
-    --secondary: #B07AFF;
-    --accent: #FFB07A;
-    --neutral: #2A1F3D;
-    --base-100: #1A1528;
-    --base-200: #0D0B1A;
-    --base-300: #2A1F3D;
-    --info: #B07AFF;
-    --success: #5DFDCB;
-    --warning: #FFB07A;
-    --error: #FF6B9D;
-    --muted: #9B8FB8;
-  }
+  --card: #FFFFFF;
+  --card-foreground: #1A1528;
+  --sidebar: #F0ECF8;
 }
 
 @theme inline {
@@ -54,59 +58,16 @@
   --color-warning: var(--warning);
   --color-error: var(--error);
   --color-muted: var(--muted);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-sidebar: var(--sidebar);
 
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: 'DM Sans', 'Noto Sans Thai', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
 }
 
 body {
   background-color: var(--background);
   color: var(--foreground);
-}
-
-/* Custom styles for Swagger UI to match our theme */
-.swagger-ui {
-  color: var(--foreground) !important;
-}
-.swagger-ui .info .title,
-.swagger-ui .info .base-url,
-.swagger-ui .opblock .opblock-summary-operation-id,
-.swagger-ui .opblock .opblock-summary-path,
-.swagger-ui .opblock .opblock-summary-path__deprecated {
-  color: var(--foreground) !important;
-}
-.swagger-ui .opblock-tag {
-  color: var(--primary) !important;
-  border-bottom-color: var(--neutral) !important;
-}
-.swagger-ui section.models .model-container, 
-.swagger-ui .scheme-container,
-.swagger-ui .opblock .opblock-section-header {
-  background: var(--base-200) !important;
-  border-color: var(--neutral) !important;
-}
-.swagger-ui select {
-  background: var(--base-100) !important;
-  color: var(--foreground) !important;
-  border-color: var(--neutral) !important;
-}
-.swagger-ui .topbar {
-  display: none !important;
-}
-.swagger-ui .model-title, 
-.swagger-ui .model-box, 
-.swagger-ui .model {
-  color: var(--foreground) !important;
-}
-.swagger-ui .prop-type, 
-.swagger-ui .prop-format {
-  color: var(--info) !important;
-}
-.swagger-ui table thead tr td, 
-.swagger-ui table thead tr th {
-  color: var(--muted) !important;
-}
-.swagger-ui .parameter__name, 
-.swagger-ui .parameter__type {
-  color: var(--foreground) !important;
+  font-family: var(--font-sans);
 }

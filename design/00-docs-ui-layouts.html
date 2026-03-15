@@ -1,0 +1,2118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1440, initial-scale=1">
+  <title>Orbit — Docs UI Layouts</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/light/style.css" />
+  <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+  <style>
+    /* ===== RESET & BASE ===== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', 'Noto Sans Thai', sans-serif;
+      background: #0D0B1A;
+      color: #F0EDF5;
+      padding: 60px;
+    }
+
+    /* ===== PAGE HEADER ===== */
+    .doc-header {
+      margin-bottom: 80px;
+    }
+
+    .doc-header-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .orbit-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, #5DFDCB, #B07AFF);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .doc-title {
+      font-size: 40px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #5DFDCB, #B07AFF);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .doc-subtitle {
+      font-size: 18px;
+      color: #9B8FB8;
+      margin-bottom: 12px;
+    }
+
+    .doc-meta {
+      font-size: 13px;
+      color: #9B8FB8;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* ===== SECTION SYSTEM ===== */
+    .section {
+      margin-bottom: 100px;
+    }
+
+    .section-title {
+      font-size: 24px;
+      font-weight: 600;
+      color: #F0EDF5;
+      margin-bottom: 12px;
+    }
+
+    .section-desc {
+      font-size: 15px;
+      color: #9B8FB8;
+      margin-bottom: 32px;
+      max-width: 700px;
+      line-height: 1.6;
+    }
+
+    .subsection-label {
+      font-size: 16px;
+      font-weight: 600;
+      color: #B07AFF;
+      margin-bottom: 16px;
+      margin-top: 40px;
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #B07AFF33, transparent);
+      margin: 80px 0;
+    }
+
+    .annotation {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: #5DFDCB;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    /* ===== MOCK FRAME ===== */
+    .frame {
+      background: #1A1528;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .frame-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: #9B8FB8;
+      margin-bottom: 10px;
+    }
+
+    /* ========================================================
+       SECTION 1 — FULL PAGE LAYOUT (DESKTOP)
+       ======================================================== */
+
+    .layout-desktop {
+      width: 100%;
+      height: 820px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* --- Top Navbar --- */
+    .mock-navbar {
+      height: 56px;
+      background: rgba(26, 21, 40, 0.95);
+      backdrop-filter: blur(24px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      flex-shrink: 0;
+    }
+
+    .navbar-left {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .navbar-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .navbar-logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #5DFDCB, #B07AFF);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .navbar-logo-text {
+      font-size: 16px;
+      font-weight: 700;
+      color: #F0EDF5;
+    }
+
+    .navbar-section-switch {
+      display: flex;
+      gap: 4px;
+      background: rgba(42, 31, 61, 0.5);
+      border-radius: 10px;
+      padding: 3px;
+    }
+
+    .navbar-section-btn {
+      padding: 6px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #9B8FB8;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .navbar-section-btn.active {
+      background: rgba(93, 253, 203, 0.12);
+      color: #5DFDCB;
+    }
+
+    .navbar-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .navbar-search {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(42, 31, 61, 0.4);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      padding: 7px 14px;
+      font-size: 13px;
+      color: #9B8FB8;
+      min-width: 240px;
+    }
+
+    .navbar-search kbd {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      background: rgba(42, 31, 61, 0.8);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 4px;
+      padding: 2px 6px;
+      margin-left: auto;
+    }
+
+    .navbar-lang {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 13px;
+      color: #9B8FB8;
+      background: rgba(42, 31, 61, 0.4);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px;
+      padding: 6px 12px;
+    }
+
+    .navbar-icon-btn {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #9B8FB8;
+      border-radius: 8px;
+    }
+
+    /* --- Body (Sidebar + Content + TOC) --- */
+    .layout-body {
+      display: flex;
+      flex: 1;
+      min-height: 0;
+    }
+
+    /* --- Sidebar --- */
+    .mock-sidebar {
+      width: 260px;
+      background: #12101E;
+      border-right: 1px solid rgba(255,255,255,0.04);
+      padding: 20px 16px;
+      flex-shrink: 0;
+      overflow-y: auto;
+    }
+
+    .sidebar-section {
+      margin-bottom: 24px;
+    }
+
+    .sidebar-section-title {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #9B8FB8;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      color: #9B8FB8;
+      margin-bottom: 2px;
+      text-decoration: none;
+    }
+
+    .sidebar-link.active {
+      background: rgba(93, 253, 203, 0.1);
+      color: #5DFDCB;
+      font-weight: 500;
+    }
+
+    .sidebar-link .method-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-left: auto;
+    }
+
+    .badge-get {
+      background: rgba(93, 253, 203, 0.12);
+      color: #5DFDCB;
+    }
+
+    .badge-post {
+      background: rgba(176, 122, 255, 0.12);
+      color: #B07AFF;
+    }
+
+    .badge-put {
+      background: rgba(255, 176, 122, 0.12);
+      color: #FFB07A;
+    }
+
+    .badge-delete {
+      background: rgba(255, 107, 157, 0.12);
+      color: #FF6B9D;
+    }
+
+    .sidebar-version {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: #5DFDCB;
+      background: rgba(93, 253, 203, 0.08);
+      border: 1px solid rgba(93, 253, 203, 0.15);
+      border-radius: 8px;
+      padding: 6px 12px;
+      margin-bottom: 20px;
+    }
+
+    /* --- Main Content --- */
+    .mock-content {
+      flex: 1;
+      padding: 32px 40px;
+      overflow-y: auto;
+      min-width: 0;
+    }
+
+    /* --- On-Page TOC --- */
+    .mock-toc {
+      width: 200px;
+      padding: 32px 16px;
+      flex-shrink: 0;
+      border-left: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .toc-title {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #9B8FB8;
+      margin-bottom: 14px;
+    }
+
+    .toc-link {
+      display: block;
+      font-size: 13px;
+      color: #9B8FB8;
+      padding: 4px 0 4px 12px;
+      border-left: 2px solid transparent;
+      margin-bottom: 4px;
+      text-decoration: none;
+    }
+
+    .toc-link.active {
+      color: #5DFDCB;
+      border-left-color: #5DFDCB;
+    }
+
+    /* ========================================================
+       SECTION 2 — CONTENT COMPONENTS
+       ======================================================== */
+
+    .components-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .component-card {
+      background: #1A1528;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 20px;
+      padding: 24px;
+    }
+
+    .component-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #B07AFF;
+      margin-bottom: 16px;
+    }
+
+    /* --- API Endpoint Card --- */
+    .api-endpoint {
+      background: #12101E;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .api-endpoint-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .api-method {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+
+    .api-method.post {
+      background: rgba(176, 122, 255, 0.15);
+      color: #B07AFF;
+    }
+
+    .api-method.get {
+      background: rgba(93, 253, 203, 0.15);
+      color: #5DFDCB;
+    }
+
+    .api-method.put {
+      background: rgba(255, 176, 122, 0.15);
+      color: #FFB07A;
+    }
+
+    .api-method.delete {
+      background: rgba(255, 107, 157, 0.15);
+      color: #FF6B9D;
+    }
+
+    .api-path {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      color: #F0EDF5;
+    }
+
+    .api-desc {
+      font-size: 13px;
+      color: #9B8FB8;
+      margin-left: auto;
+    }
+
+    .api-endpoint-body {
+      padding: 20px;
+    }
+
+    .api-section-label {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #9B8FB8;
+      margin-bottom: 12px;
+    }
+
+    .api-param-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    .api-param-table th {
+      text-align: left;
+      font-size: 11px;
+      font-weight: 500;
+      color: #9B8FB8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .api-param-table td {
+      padding: 10px 0;
+      font-size: 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      vertical-align: top;
+    }
+
+    .param-name {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: #F0EDF5;
+    }
+
+    .param-type {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: #B07AFF;
+    }
+
+    .param-required {
+      font-size: 11px;
+      font-weight: 600;
+      color: #FF6B9D;
+      background: rgba(255, 107, 157, 0.1);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .param-optional {
+      font-size: 11px;
+      color: #9B8FB8;
+    }
+
+    .param-desc {
+      font-size: 13px;
+      color: #9B8FB8;
+    }
+
+    /* --- Code Block --- */
+    .code-block {
+      background: #0D0B1A;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .code-block-header {
+      display: flex;
+      align-items: center;
+      padding: 10px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      gap: 0;
+    }
+
+    .code-tab {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      padding: 5px 14px;
+      border-radius: 6px;
+      color: #9B8FB8;
+      cursor: pointer;
+    }
+
+    .code-tab.active {
+      background: rgba(93, 253, 203, 0.1);
+      color: #5DFDCB;
+    }
+
+    .code-block-body {
+      padding: 16px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      line-height: 1.7;
+      overflow-x: auto;
+    }
+
+    .code-comment { color: #9B8FB8; }
+    .code-keyword { color: #B07AFF; }
+    .code-string { color: #5DFDCB; }
+    .code-number { color: #FFB07A; }
+    .code-func { color: #FF6B9D; }
+    .code-prop { color: #F0EDF5; }
+
+    /* --- Response Block --- */
+    .response-block {
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .response-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .response-header.success {
+      background: rgba(93, 253, 203, 0.08);
+      color: #5DFDCB;
+      border: 1px solid rgba(93, 253, 203, 0.15);
+      border-radius: 12px 12px 0 0;
+    }
+
+    .response-status {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    /* ===== LANDING PAGE MOCK ===== */
+    .landing-hero {
+      text-align: center;
+      padding: 60px 40px;
+    }
+
+    .landing-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 20px;
+      background: rgba(93, 253, 203, 0.1);
+      border: 1px solid rgba(93, 253, 203, 0.2);
+      font-size: 12px;
+      font-weight: 600;
+      color: #5DFDCB;
+      margin-bottom: 24px;
+    }
+
+    .landing-badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 3px;
+      background: #5DFDCB;
+    }
+
+    .landing-h1 {
+      font-size: 44px;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 16px;
+      color: #F0EDF5;
+    }
+
+    .landing-h1 span {
+      background: linear-gradient(135deg, #5DFDCB, #B07AFF);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .landing-desc {
+      font-size: 18px;
+      color: #9B8FB8;
+      max-width: 560px;
+      margin: 0 auto 32px;
+      line-height: 1.6;
+    }
+
+    .landing-buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #5DFDCB, #4DE0B5);
+      color: #0D0B1A;
+      border: none;
+      border-radius: 14px;
+      padding: 12px 28px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: #F0EDF5;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 14px;
+      padding: 12px 28px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* --- Feature Cards --- */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      padding: 0 40px 40px;
+    }
+
+    .feature-card {
+      background: rgba(42, 31, 61, 0.3);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 24px;
+    }
+
+    .feature-card-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+      font-size: 20px;
+    }
+
+    .feature-card h3 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #F0EDF5;
+      margin-bottom: 6px;
+    }
+
+    .feature-card p {
+      font-size: 13px;
+      color: #9B8FB8;
+      line-height: 1.5;
+    }
+
+    /* ===== MOBILE FRAME ===== */
+    .mobile-frame {
+      width: 375px;
+      background: #1A1528;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .mobile-navbar {
+      height: 52px;
+      background: rgba(26, 21, 40, 0.95);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+    }
+
+    /* ===== PRODUCT SECTION MOCK ===== */
+    .product-hero-card {
+      background: linear-gradient(135deg, rgba(93, 253, 203, 0.08), rgba(176, 122, 255, 0.08));
+      border: 1px solid rgba(93, 253, 203, 0.12);
+      border-radius: 20px;
+      padding: 32px;
+      text-align: center;
+    }
+
+    /* ===== THREE-COL LAYOUT ===== */
+    .three-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 24px;
+    }
+
+    /* ===== LIGHT MODE SECTION ===== */
+    .light-section {
+      background: #F8F5FF;
+      border-radius: 24px;
+      padding: 40px;
+      color: #1A1528;
+    }
+
+    .light-section .section-title { color: #1A1528; }
+    .light-section .section-desc { color: #6B5F82; }
+    .light-section .subsection-label { color: #6C3AE0; }
+
+    .light-section .mock-navbar {
+      background: rgba(255,255,255,0.9);
+      border-bottom-color: rgba(0,0,0,0.06);
+    }
+
+    .light-section .navbar-logo-text { color: #1A1528; }
+
+    .light-section .navbar-section-switch {
+      background: rgba(108, 58, 224, 0.06);
+    }
+
+    .light-section .navbar-section-btn {
+      color: #6B5F82;
+    }
+
+    .light-section .navbar-section-btn.active {
+      background: rgba(108, 58, 224, 0.12);
+      color: #6C3AE0;
+    }
+
+    .light-section .navbar-search {
+      background: rgba(0,0,0,0.03);
+      border-color: rgba(0,0,0,0.08);
+      color: #6B5F82;
+    }
+
+    .light-section .navbar-lang {
+      color: #6B5F82;
+      background: rgba(0,0,0,0.03);
+      border-color: rgba(0,0,0,0.08);
+    }
+
+    .light-section .mock-sidebar {
+      background: #F0ECF8;
+      border-right-color: rgba(0,0,0,0.06);
+    }
+
+    .light-section .sidebar-section-title { color: #6B5F82; }
+    .light-section .sidebar-link { color: #6B5F82; }
+    .light-section .sidebar-link.active {
+      background: rgba(108, 58, 224, 0.08);
+      color: #6C3AE0;
+    }
+
+    .light-section .sidebar-version {
+      color: #6C3AE0;
+      background: rgba(108, 58, 224, 0.06);
+      border-color: rgba(108, 58, 224, 0.12);
+    }
+
+    .light-section .mock-content { color: #1A1528; }
+    .light-section .mock-toc { border-left-color: rgba(0,0,0,0.06); }
+    .light-section .toc-title { color: #6B5F82; }
+    .light-section .toc-link { color: #6B5F82; }
+    .light-section .toc-link.active {
+      color: #6C3AE0;
+      border-left-color: #6C3AE0;
+    }
+
+    .light-section .frame {
+      background: #FFFFFF;
+      border-color: rgba(0,0,0,0.06);
+    }
+
+    /* ===== BREADCRUMB ===== */
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: #9B8FB8;
+      margin-bottom: 24px;
+    }
+
+    .breadcrumb-current { color: #F0EDF5; }
+
+    /* ===== CONTENT TYPOGRAPHY ===== */
+    .content-h1 {
+      font-size: 32px;
+      font-weight: 700;
+      color: #F0EDF5;
+      margin-bottom: 8px;
+    }
+
+    .content-lead {
+      font-size: 16px;
+      color: #9B8FB8;
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+
+    .content-h2 {
+      font-size: 22px;
+      font-weight: 600;
+      color: #F0EDF5;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .content-body {
+      font-size: 15px;
+      color: #9B8FB8;
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    /* ===== CALLOUT ===== */
+    .callout {
+      padding: 16px 20px;
+      border-radius: 12px;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 24px;
+      display: flex;
+      gap: 12px;
+    }
+
+    .callout-info {
+      background: rgba(176, 122, 255, 0.08);
+      border-left: 3px solid #B07AFF;
+      color: #B07AFF;
+    }
+
+    .callout-warning {
+      background: rgba(255, 176, 122, 0.08);
+      border-left: 3px solid #FFB07A;
+      color: #FFB07A;
+    }
+
+    .callout-success {
+      background: rgba(93, 253, 203, 0.08);
+      border-left: 3px solid #5DFDCB;
+      color: #5DFDCB;
+    }
+
+    /* ===== NAV TABS FOR SECTION ===== */
+    .content-tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      margin-bottom: 24px;
+    }
+
+    .content-tab {
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #9B8FB8;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+    }
+
+    .content-tab.active {
+      color: #5DFDCB;
+      border-bottom-color: #5DFDCB;
+    }
+
+    /* ===== i18n SPEC ===== */
+    .i18n-tree {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      line-height: 2;
+      color: #9B8FB8;
+    }
+
+    .i18n-tree .folder { color: #B07AFF; }
+    .i18n-tree .file { color: #5DFDCB; }
+    .i18n-tree .desc { color: #9B8FB8; font-family: 'DM Sans', sans-serif; font-size: 12px; }
+  </style>
+</head>
+<body>
+
+  <!-- ===== DOCUMENT HEADER ===== -->
+  <div class="doc-header">
+    <div class="doc-header-row">
+      <div class="orbit-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" fill="#0D0B1A" width="24" height="24"><g transform="translate(0,1024) scale(0.1,-0.1)"><path d="M7705 10159 c-252 -37 -513 -76 -585 -89 -30 -5 -131 -21 -225 -36 -93 -15 -194 -33 -223 -41 -53 -14 -54 -15 -83 -79 -16 -36 -49 -113 -74 -172 -93 -228 -235 -546 -248 -560 -13 -12 -43 -7 -233 41 -412 104 -634 137 -945 137 -445 0 -891 -74 -1375 -229 -180 -57 -591 -248 -754 -351 -311 -194 -555 -385 -789 -614 -505 -496 -864 -1061 -1073 -1691 -54 -163 -131 -447 -156 -575 -53 -272 -72 -474 -72 -749 0 -227 6 -314 36 -561 77 -629 318 -1250 692 -1780 121 -171 221 -287 408 -471 173 -169 198 -193 357 -322 122 -101 171 -132 187 -122 15 9 49 80 130 270 40 94 117 269 170 390 54 121 124 279 155 350 31 72 74 168 95 215 111 247 150 339 150 353 0 9 -22 45 -50 81 -301 393 -493 886 -531 1369 -46 570 114 1136 463 1639 141 204 398 453 617 600 271 180 547 292 911 369 182 38 764 38 865 -1 14 -5 25 -17 25 -26 0 -9 -20 -62 -44 -118 -24 -55 -82 -193 -129 -306 -47 -113 -134 -315 -192 -450 -59 -135 -126 -290 -150 -345 -74 -175 -244 -574 -325 -765 -43 -102 -122 -286 -175 -410 -54 -124 -142 -331 -196 -460 -55 -129 -103 -244 -109 -255 -13 -29 -106 -241 -196 -450 -170 -396 -207 -483 -239 -560 -18 -44 -58 -137 -89 -208 -31 -70 -81 -184 -112 -255 -31 -70 -71 -163 -89 -207 -18 -44 -81 -190 -140 -325 -131 -299 -249 -571 -314 -728 -27 -64 -88 -203 -134 -308 -47 -105 -124 -283 -172 -395 -96 -226 -250 -576 -326 -741 -50 -109 -58 -142 -36 -151 10 -4 251 28 577 78 58 9 134 20 170 25 466 67 591 90 615 114 11 12 85 172 164 356 78 184 149 345 157 357 18 29 51 29 175 2 230 -50 282 -60 414 -78 256 -36 680 -37 938 -1 39 5 108 15 152 21 429 57 856 189 1280 393 518 250 1025 655 1381 1101 118 149 301 414 384 555 286 492 474 1047 540 1594 22 179 40 414 40 523 0 119 -20 366 -44 543 -104 764 -386 1431 -851 2015 -165 208 -589 605 -645 605 -8 0 -21 -4 -28 -9 -7 -4 -57 -113 -111 -242 -54 -129 -122 -286 -151 -349 -46 -101 -128 -294 -250 -585 -21 -49 -49 -115 -63 -145 -76 -166 -117 -262 -117 -273 0 -7 30 -57 66 -112 220 -336 349 -661 416 -1055 20 -116 23 -170 23 -380 0 -323 -22 -457 -127 -778 -219 -672 -774 -1246 -1427 -1477 -281 -100 -467 -129 -821 -129 -260 -1 -370 10 -386 35 -7 12 7 49 157 399 64 151 147 347 184 435 37 88 111 264 166 391 54 127 136 323 183 435 46 112 99 236 116 274 18 39 92 210 165 380 73 171 186 432 250 580 65 149 155 358 200 465 45 107 129 301 185 430 56 129 113 260 126 291 13 32 60 140 105 240 45 101 97 220 114 264 18 44 47 114 65 155 18 41 110 257 205 480 95 223 212 495 260 605 48 110 107 247 130 305 24 58 71 166 105 240 62 136 196 450 308 720 33 80 76 181 95 224 19 44 33 85 30 93 -7 19 -69 15 -298 -18z"/></g></svg>
+      </div>
+      <div class="doc-title">Orbit — Docs UI Layouts</div>
+    </div>
+    <div class="doc-subtitle">Layout Reference for Documentation Website · Developer Portal & Product Docs</div>
+    <div class="doc-meta">Next.js 16 · Tailwind v4 · DaisyUI · shadcn/ui · next-intl (EN/TH)</div>
+  </div>
+
+
+  <!-- ================================================================
+       SECTION 1 — FULL PAGE LAYOUT (DARK MODE - DEVELOPER)
+       ================================================================ -->
+  <div class="section">
+    <div class="section-title">1. Full Page Layout — Developer Portal (Dark)</div>
+    <div class="section-desc">
+      Desktop view of the /en/develop/ section showing the three-column layout: collapsible sidebar, main content area, and on-page table of contents.
+    </div>
+
+    <div class="annotation">Desktop · 1440px · /en/develop/api/users</div>
+    <div class="frame">
+      <div class="layout-desktop">
+
+        <!-- Top Navbar -->
+        <div class="mock-navbar">
+          <div class="navbar-left">
+            <div class="navbar-logo">
+              <div class="navbar-logo-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" fill="#0D0B1A" width="16" height="16"><g transform="translate(0,1024) scale(0.1,-0.1)"><path d="M7705 10159 c-252 -37 -513 -76 -585 -89 -30 -5 -131 -21 -225 -36 -93 -15 -194 -33 -223 -41 -53 -14 -54 -15 -83 -79 -16 -36 -49 -113 -74 -172 -93 -228 -235 -546 -248 -560 -13 -12 -43 -7 -233 41 -412 104 -634 137 -945 137 -445 0 -891 -74 -1375 -229 -180 -57 -591 -248 -754 -351 -311 -194 -555 -385 -789 -614 -505 -496 -864 -1061 -1073 -1691 -54 -163 -131 -447 -156 -575 -53 -272 -72 -474 -72 -749 0 -227 6 -314 36 -561 77 -629 318 -1250 692 -1780 121 -171 221 -287 408 -471 173 -169 198 -193 357 -322 122 -101 171 -132 187 -122 15 9 49 80 130 270 40 94 117 269 170 390 54 121 124 279 155 350 31 72 74 168 95 215 111 247 150 339 150 353 0 9 -22 45 -50 81 -301 393 -493 886 -531 1369 -46 570 114 1136 463 1639 141 204 398 453 617 600 271 180 547 292 911 369 182 38 764 38 865 -1 14 -5 25 -17 25 -26 0 -9 -20 -62 -44 -118z"/></g></svg>
+              </div>
+              <div class="navbar-logo-text">Orbit</div>
+            </div>
+            <div class="navbar-section-switch">
+              <div class="navbar-section-btn active">Develop</div>
+              <div class="navbar-section-btn">Product</div>
+            </div>
+          </div>
+          <div class="navbar-right">
+            <div class="navbar-search">
+              <i class="ph-light ph-magnifying-glass" style="font-size:14px;"></i>
+              Search documentation...
+              <kbd>⌘K</kbd>
+            </div>
+            <div class="navbar-lang">
+              <i class="ph-light ph-globe-simple" style="font-size:14px;"></i>
+              EN
+              <i class="ph-light ph-caret-down" style="font-size:10px;"></i>
+            </div>
+            <div class="navbar-icon-btn">
+              <i class="ph-light ph-github-logo" style="font-size:20px;"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Body -->
+        <div class="layout-body">
+
+          <!-- Sidebar -->
+          <div class="mock-sidebar">
+            <div class="sidebar-version">
+              <i class="ph-light ph-tag" style="font-size:12px;"></i>
+              v1.0.0
+              <i class="ph-light ph-caret-down" style="font-size:10px;"></i>
+            </div>
+
+            <div class="sidebar-section">
+              <div class="sidebar-section-title">
+                Getting Started
+                <i class="ph-light ph-caret-down" style="font-size:12px;"></i>
+              </div>
+              <a class="sidebar-link" href="#">
+                <i class="ph-light ph-rocket" style="font-size:16px;"></i>
+                Quick Start
+              </a>
+              <a class="sidebar-link" href="#">
+                <i class="ph-light ph-key" style="font-size:16px;"></i>
+                Authentication
+              </a>
+            </div>
+
+            <div class="sidebar-section">
+              <div class="sidebar-section-title">
+                API Reference
+                <i class="ph-light ph-caret-down" style="font-size:12px;"></i>
+              </div>
+              <a class="sidebar-link active" href="#">
+                <i class="ph-light ph-user" style="font-size:16px;"></i>
+                Users
+              </a>
+              <a class="sidebar-link" href="#" style="padding-left: 36px; font-size: 13px;">
+                Register User
+                <span class="method-badge badge-post">POST</span>
+              </a>
+              <a class="sidebar-link" href="#" style="padding-left: 36px; font-size: 13px;">
+                Get by Clerk ID
+                <span class="method-badge badge-get">GET</span>
+              </a>
+              <a class="sidebar-link" href="#">
+                <i class="ph-light ph-wallet" style="font-size:16px;"></i>
+                Accounts
+              </a>
+              <a class="sidebar-link" href="#" style="opacity:0.4;">
+                <i class="ph-light ph-arrows-left-right" style="font-size:16px;"></i>
+                Transactions
+                <span style="font-size:10px;color:#FFB07A;margin-left:auto;">Soon</span>
+              </a>
+              <a class="sidebar-link" href="#" style="opacity:0.4;">
+                <i class="ph-light ph-credit-card" style="font-size:16px;"></i>
+                Payments
+                <span style="font-size:10px;color:#FFB07A;margin-left:auto;">Soon</span>
+              </a>
+            </div>
+
+            <div class="sidebar-section">
+              <div class="sidebar-section-title">
+                Architecture
+                <i class="ph-light ph-caret-down" style="font-size:12px;"></i>
+              </div>
+              <a class="sidebar-link" href="#">
+                <i class="ph-light ph-hexagon" style="font-size:16px;"></i>
+                System Design
+              </a>
+              <a class="sidebar-link" href="#">
+                <i class="ph-light ph-database" style="font-size:16px;"></i>
+                Database Strategy
+              </a>
+            </div>
+          </div>
+
+          <!-- Main Content -->
+          <div class="mock-content">
+            <div class="breadcrumb">
+              Develop <i class="ph-light ph-caret-right" style="font-size:10px;"></i>
+              API Reference <i class="ph-light ph-caret-right" style="font-size:10px;"></i>
+              <span class="breadcrumb-current">Users</span>
+            </div>
+
+            <div class="content-h1">Users API</div>
+            <div class="content-lead">
+              Manage user registration and retrieval via Clerk identity synchronization.
+            </div>
+
+            <!-- Endpoint -->
+            <div class="api-endpoint" style="margin-bottom: 24px;">
+              <div class="api-endpoint-header">
+                <span class="api-method post">POST</span>
+                <span class="api-path">/api/v1/users</span>
+                <span class="api-desc">Register a new user</span>
+              </div>
+              <div class="api-endpoint-body">
+                <div class="api-section-label">Request Body</div>
+                <table class="api-param-table">
+                  <thead>
+                    <tr>
+                      <th style="width:25%;">Field</th>
+                      <th style="width:15%;">Type</th>
+                      <th style="width:15%;">Required</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><span class="param-name">clerkUserId</span></td>
+                      <td><span class="param-type">string</span></td>
+                      <td><span class="param-required">required</span></td>
+                      <td><span class="param-desc">External Clerk user identifier</span></td>
+                    </tr>
+                    <tr>
+                      <td><span class="param-name">email</span></td>
+                      <td><span class="param-type">string</span></td>
+                      <td><span class="param-required">required</span></td>
+                      <td><span class="param-desc">User email address (format: email)</span></td>
+                    </tr>
+                    <tr>
+                      <td><span class="param-name">firstName</span></td>
+                      <td><span class="param-type">string</span></td>
+                      <td><span class="param-optional">optional</span></td>
+                      <td><span class="param-desc">User's first name</span></td>
+                    </tr>
+                    <tr>
+                      <td><span class="param-name">baseCurrency</span></td>
+                      <td><span class="param-type">string</span></td>
+                      <td><span class="param-optional">optional</span></td>
+                      <td><span class="param-desc">Default: THB</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <div class="api-section-label" style="margin-top:20px;">Example Request</div>
+                <div class="code-block">
+                  <div class="code-block-header">
+                    <div class="code-tab active">cURL</div>
+                    <div class="code-tab">JavaScript</div>
+                    <div class="code-tab">Python</div>
+                  </div>
+                  <div class="code-block-body">
+                    <span class="code-func">curl</span> <span class="code-keyword">-X</span> POST <span class="code-string">http://localhost:8080/api/v1/users</span> \<br>
+                    &nbsp;&nbsp;<span class="code-keyword">-H</span> <span class="code-string">"Content-Type: application/json"</span> \<br>
+                    &nbsp;&nbsp;<span class="code-keyword">-d</span> <span class="code-string">'{"clerkUserId": "user_abc", "email": "beam@orbit.app"}'</span>
+                  </div>
+                </div>
+
+                <div class="api-section-label" style="margin-top:20px;">Response · 200 OK</div>
+                <div class="code-block">
+                  <div class="response-header success">
+                    <span class="response-status">200</span> Success
+                  </div>
+                  <div class="code-block-body">
+                    {<br>
+                    &nbsp;&nbsp;<span class="code-prop">"success"</span>: <span class="code-keyword">true</span>,<br>
+                    &nbsp;&nbsp;<span class="code-prop">"message"</span>: <span class="code-string">"User registered"</span>,<br>
+                    &nbsp;&nbsp;<span class="code-prop">"data"</span>: {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-prop">"id"</span>: <span class="code-string">"550e8400-e29b-41d4-a716..."</span>,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-prop">"email"</span>: <span class="code-string">"beam@orbit.app"</span>,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-prop">"status"</span>: <span class="code-string">"ACTIVE"</span><br>
+                    &nbsp;&nbsp;}<br>
+                    }
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Second Endpoint -->
+            <div class="api-endpoint">
+              <div class="api-endpoint-header">
+                <span class="api-method get">GET</span>
+                <span class="api-path">/api/v1/users/clerk/{clerkUserId}</span>
+                <span class="api-desc">Get user by Clerk ID</span>
+              </div>
+              <div class="api-endpoint-body">
+                <div class="api-section-label">Path Parameters</div>
+                <table class="api-param-table">
+                  <thead>
+                    <tr>
+                      <th style="width:25%;">Parameter</th>
+                      <th style="width:15%;">Type</th>
+                      <th style="width:15%;">Required</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><span class="param-name">clerkUserId</span></td>
+                      <td><span class="param-type">string</span></td>
+                      <td><span class="param-required">required</span></td>
+                      <td><span class="param-desc">The Clerk user ID to look up</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- On-Page TOC -->
+          <div class="mock-toc">
+            <div class="toc-title">On this page</div>
+            <a class="toc-link active" href="#">Users API</a>
+            <a class="toc-link" href="#" style="padding-left:20px;">POST Register User</a>
+            <a class="toc-link" href="#" style="padding-left:28px;">Request Body</a>
+            <a class="toc-link" href="#" style="padding-left:28px;">Example Request</a>
+            <a class="toc-link" href="#" style="padding-left:28px;">Response</a>
+            <a class="toc-link" href="#" style="padding-left:20px;">GET by Clerk ID</a>
+            <a class="toc-link" href="#" style="padding-left:28px;">Path Parameters</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="divider"></div>
+
+
+  <!-- ================================================================
+       SECTION 2 — LANDING PAGE
+       ================================================================ -->
+  <div class="section">
+    <div class="section-title">2. Landing Page — /en/</div>
+    <div class="section-desc">
+      The root landing page that routes users to either Developer or Product documentation. Uses the same navbar but no sidebar.
+    </div>
+
+    <div class="annotation">Desktop · 1440px · /en/</div>
+    <div class="frame">
+      <!-- Navbar -->
+      <div class="mock-navbar">
+        <div class="navbar-left">
+          <div class="navbar-logo">
+            <div class="navbar-logo-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" fill="#0D0B1A" width="16" height="16"><g transform="translate(0,1024) scale(0.1,-0.1)"><path d="M7705 10159 c-252 -37 -513 -76 -585 -89 -30 -5 -131 -21 -225 -36z"/></g></svg>
+            </div>
+            <div class="navbar-logo-text">Orbit</div>
+          </div>
+          <div class="navbar-section-switch">
+            <div class="navbar-section-btn">Develop</div>
+            <div class="navbar-section-btn">Product</div>
+          </div>
+        </div>
+        <div class="navbar-right">
+          <div class="navbar-search">
+            <i class="ph-light ph-magnifying-glass" style="font-size:14px;"></i>
+            Search documentation...
+            <kbd>⌘K</kbd>
+          </div>
+          <div class="navbar-lang">
+            <i class="ph-light ph-globe-simple" style="font-size:14px;"></i>
+            EN
+            <i class="ph-light ph-caret-down" style="font-size:10px;"></i>
+          </div>
+          <div class="navbar-icon-btn">
+            <i class="ph-light ph-github-logo" style="font-size:20px;"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero -->
+      <div class="landing-hero">
+        <div class="landing-badge">
+          <div class="landing-badge-dot"></div>
+          v1.0.0 — NOW LIVE
+        </div>
+        <div class="landing-h1">
+          Build the future of<br>
+          <span>Personal Finance</span>
+        </div>
+        <div class="landing-desc">
+          The Orbit Platform provides a rigorous, Hexagonal Architecture-based API for ledgers, crypto tracking, and smart financial rules.
+        </div>
+        <div class="landing-buttons">
+          <button class="btn-primary">
+            <i class="ph-light ph-terminal" style="font-size:16px;margin-right:6px;"></i>
+            Start Building
+          </button>
+          <button class="btn-ghost">
+            <i class="ph-light ph-book-open" style="font-size:16px;margin-right:6px;"></i>
+            Read Docs
+          </button>
+        </div>
+      </div>
+
+      <!-- Feature Cards -->
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-card-icon" style="background:rgba(93,253,203,0.1);">
+            <i class="ph-light ph-terminal" style="color:#5DFDCB;"></i>
+          </div>
+          <h3>REST API</h3>
+          <p>Explore endpoints, test payloads, and understand response structures with interactive API reference.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon" style="background:rgba(176,122,255,0.1);">
+            <i class="ph-light ph-hexagon" style="color:#B07AFF;"></i>
+          </div>
+          <h3>Architecture</h3>
+          <p>Hexagonal boundaries, CQRS patterns, and the dual PostgreSQL & MongoDB data strategy.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon" style="background:rgba(255,176,122,0.1);">
+            <i class="ph-light ph-currency-btc" style="color:#FFB07A;"></i>
+          </div>
+          <h3>Multi-Currency & Crypto</h3>
+          <p>Track fiat and cryptocurrency assets with real-time exchange rate synchronization.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon" style="background:rgba(255,107,157,0.1);">
+            <i class="ph-light ph-shield-check" style="color:#FF6B9D;"></i>
+          </div>
+          <h3>Security</h3>
+          <p>Clerk identity, Spring Security, and audit trail for enterprise-grade financial data.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="divider"></div>
+
+
+  <!-- ================================================================
+       SECTION 3 — PRODUCT DOCS LAYOUT
+       ================================================================ -->
+  <div class="section">
+    <div class="section-title">3. Product Documentation — /en/product/</div>
+    <div class="section-desc">
+      Product section for end-users and stakeholders. Different sidebar navigation from Developer section, focused on features and use cases rather than API endpoints.
+    </div>
+
+    <div class="annotation">Desktop · 1440px · /en/product/overview</div>
+    <div class="frame">
+      <div class="layout-desktop" style="height:680px;">
+
+        <!-- Navbar with Product active -->
+        <div class="mock-navbar">
+          <div class="navbar-left">
+            <div class="navbar-logo">
+              <div class="navbar-logo-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" fill="#0D0B1A" width="16" height="16"><g transform="translate(0,1024) scale(0.1,-0.1)"><path d="M7705 10159 c-252 -37z"/></g></svg>
+              </div>
+              <div class="navbar-logo-text">Orbit</div>
+            </div>
+            <div class="navbar-section-switch">
+              <div class="navbar-section-btn">Develop</div>
+              <div class="navbar-section-btn active">Product</div>
+            </div>
+          </div>
+          <div class="navbar-right">
+            <div class="navbar-search">
+              <i class="ph-light ph-magnifying-glass" style="font-size:14px;"></i>
+              Search documentation...
+              <kbd>⌘K</kbd>
+            </div>
+            <div class="navbar-lang">
+              <i class="ph-light ph-globe-simple" style="font-size:14px;"></i>
+              TH
+              <i class="ph-light ph-caret-down" style="font-size:10px;"></i>
+            </div>
+            <div class="navbar-icon-btn">
+              <i class="ph-light ph-github-logo" style="font-size:20px;"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="layout-body">
+          <!-- Product Sidebar -->
+          <div class="mock-sidebar">
+            <div class="sidebar-section">
+              <div class="sidebar-section-title">
+                Overview
+                <i class="ph-light ph-caret-down" style="font-size:12px;"></i>
+              </div>
+              <a class="sidebar-link active" href="#">
+                <i class="ph-light ph-sparkle" style="font-size:16px;"></i>
+                What is Orbit?
+              </a>
+              <a class="sidebar-link" href="#">
+                <i class="ph-light ph-map-trifold" style="font-size:16px;"></i>
+                Roadmap
+              </a>
+            </div>
+
+            <div class="sidebar-section">
+              <div class="sidebar-section-title">
+                Features
+                <i class="ph-light ph-caret-down" style="font-size:12px;"></i>
+              </div>
+              <a class="sidebar-link" href="#">
+                <i class="ph-light ph-wallet" style="font-size:16px;"></i>
+                Account Management
+              </a>
+              <a class="sidebar-link" href="#">
+                <i class="ph-light ph-chart-line-up" style="font-size:16px;"></i>
+                Budget Tracking
+              </a>
+              <a class="sidebar-link" href="#">
+                <i class="ph-light ph-currency-btc" style="font-size:16px;"></i>
+                Crypto Support
+              </a>
+              <a class="sidebar-link" href="#">
+                <i class="ph-light ph-chart-pie-slice" style="font-size:16px;"></i>
+                Analytics
+              </a>
+            </div>
+
+            <div class="sidebar-section">
+              <div class="sidebar-section-title">
+                Guides
+                <i class="ph-light ph-caret-down" style="font-size:12px;"></i>
+              </div>
+              <a class="sidebar-link" href="#">
+                <i class="ph-light ph-play-circle" style="font-size:16px;"></i>
+                Getting Started
+              </a>
+              <a class="sidebar-link" href="#">
+                <i class="ph-light ph-question" style="font-size:16px;"></i>
+                FAQ
+              </a>
+            </div>
+          </div>
+
+          <!-- Product Content -->
+          <div class="mock-content">
+            <div class="breadcrumb">
+              Product <i class="ph-light ph-caret-right" style="font-size:10px;"></i>
+              <span class="breadcrumb-current">What is Orbit?</span>
+            </div>
+
+            <div class="content-h1">What is Orbit?</div>
+            <div class="content-lead">
+              Orbit is a comprehensive personal finance management system designed for multi-currency tracking, crypto assets, and smart budgeting.
+            </div>
+
+            <div class="product-hero-card" style="margin-bottom: 32px;">
+              <div style="font-size:48px;margin-bottom:16px;">
+                <i class="ph-light ph-planet" style="color:#5DFDCB;"></i>
+              </div>
+              <div style="font-size:20px;font-weight:600;margin-bottom:8px;color:#F0EDF5;">
+                Your Financial Universe, Simplified
+              </div>
+              <div style="font-size:15px;color:#9B8FB8;max-width:400px;margin:0 auto;line-height:1.6;">
+                Track every baht, bitcoin, and budget with a single, beautifully designed platform.
+              </div>
+            </div>
+
+            <div class="content-h2">Key Capabilities</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px;">
+              <div style="background:rgba(42,31,61,0.3);border:1px solid rgba(255,255,255,0.04);border-radius:12px;padding:20px;">
+                <div style="font-size:24px;margin-bottom:8px;"><i class="ph-light ph-bank" style="color:#5DFDCB;"></i></div>
+                <div style="font-size:15px;font-weight:600;margin-bottom:4px;">Multi-Account</div>
+                <div style="font-size:13px;color:#9B8FB8;">Bank, credit, cash, crypto, investment</div>
+              </div>
+              <div style="background:rgba(42,31,61,0.3);border:1px solid rgba(255,255,255,0.04);border-radius:12px;padding:20px;">
+                <div style="font-size:24px;margin-bottom:8px;"><i class="ph-light ph-globe" style="color:#B07AFF;"></i></div>
+                <div style="font-size:15px;font-weight:600;margin-bottom:4px;">Multi-Currency</div>
+                <div style="font-size:13px;color:#9B8FB8;">THB, USD, EUR + crypto with live rates</div>
+              </div>
+              <div style="background:rgba(42,31,61,0.3);border:1px solid rgba(255,255,255,0.04);border-radius:12px;padding:20px;">
+                <div style="font-size:24px;margin-bottom:8px;"><i class="ph-light ph-shield-check" style="color:#FFB07A;"></i></div>
+                <div style="font-size:15px;font-weight:600;margin-bottom:4px;">Secure Identity</div>
+                <div style="font-size:13px;color:#9B8FB8;">Clerk SSO + enterprise audit trail</div>
+              </div>
+              <div style="background:rgba(42,31,61,0.3);border:1px solid rgba(255,255,255,0.04);border-radius:12px;padding:20px;">
+                <div style="font-size:24px;margin-bottom:8px;"><i class="ph-light ph-open-ai-logo" style="color:#FF6B9D;"></i></div>
+                <div style="font-size:15px;font-weight:600;margin-bottom:4px;">AI Insights</div>
+                <div style="font-size:13px;color:#9B8FB8;">Smart categorization & spending advice</div>
+              </div>
+            </div>
+
+            <div class="callout callout-info">
+              <i class="ph-light ph-info" style="font-size:18px;flex-shrink:0;"></i>
+              <div>Orbit is currently in <strong style="color:#F0EDF5;">v1.0.0-SNAPSHOT</strong>. The Users and Accounts APIs are live. Transactions and Payments are coming soon.</div>
+            </div>
+          </div>
+
+          <!-- TOC -->
+          <div class="mock-toc">
+            <div class="toc-title">On this page</div>
+            <a class="toc-link active" href="#">What is Orbit?</a>
+            <a class="toc-link" href="#">Key Capabilities</a>
+            <a class="toc-link" href="#">Status & Roadmap</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="divider"></div>
+
+
+  <!-- ================================================================
+       SECTION 4 — CONTENT COMPONENTS
+       ================================================================ -->
+  <div class="section">
+    <div class="section-title">4. Content Components</div>
+    <div class="section-desc">
+      Reusable building blocks used across both Developer and Product documentation pages.
+    </div>
+
+    <div class="components-grid">
+
+      <!-- API Endpoint (Compact) -->
+      <div class="component-card">
+        <div class="component-title">API Endpoint Card</div>
+        <div class="api-endpoint">
+          <div class="api-endpoint-header">
+            <span class="api-method post">POST</span>
+            <span class="api-path" style="font-size:13px;">/api/v1/accounts</span>
+          </div>
+          <div class="api-endpoint-body" style="padding:14px;">
+            <div style="font-size:13px;color:#9B8FB8;line-height:1.6;">
+              Creates a new financial account for a specific user.
+              Supports: BANK, CREDIT, CRYPTO, CASH, INVESTMENT types.
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:12px;">
+          <div class="api-endpoint">
+            <div class="api-endpoint-header">
+              <span class="api-method get">GET</span>
+              <span class="api-path" style="font-size:13px;">/api/v1/accounts/user/{userId}</span>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:12px;">
+          <div class="api-endpoint">
+            <div class="api-endpoint-header">
+              <span class="api-method put">PUT</span>
+              <span class="api-path" style="font-size:13px;">/api/v1/accounts/{id}</span>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:12px;">
+          <div class="api-endpoint">
+            <div class="api-endpoint-header">
+              <span class="api-method delete">DELETE</span>
+              <span class="api-path" style="font-size:13px;">/api/v1/accounts/{id}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Code Block Variants -->
+      <div class="component-card">
+        <div class="component-title">Code Block with Tabs</div>
+        <div class="code-block" style="margin-bottom:16px;">
+          <div class="code-block-header">
+            <div class="code-tab active">cURL</div>
+            <div class="code-tab">JavaScript</div>
+            <div class="code-tab">Python</div>
+            <div class="code-tab">Java</div>
+          </div>
+          <div class="code-block-body" style="font-size:12px;">
+            <span class="code-func">curl</span> <span class="code-keyword">-X</span> GET \<br>
+            &nbsp;&nbsp;<span class="code-string">http://localhost:8080/api/v1/accounts/user/{userId}</span>
+          </div>
+        </div>
+
+        <div class="component-title">Response Block</div>
+        <div class="code-block">
+          <div class="response-header success">
+            <span class="response-status">200</span> Success
+          </div>
+          <div class="code-block-body" style="font-size:12px;">
+            {<br>
+            &nbsp;&nbsp;<span class="code-prop">"success"</span>: <span class="code-keyword">true</span>,<br>
+            &nbsp;&nbsp;<span class="code-prop">"data"</span>: [<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;{ <span class="code-prop">"name"</span>: <span class="code-string">"Savings"</span>, <span class="code-prop">"type"</span>: <span class="code-string">"BANK"</span> }<br>
+            &nbsp;&nbsp;]<br>
+            }
+          </div>
+        </div>
+      </div>
+
+      <!-- Callouts -->
+      <div class="component-card">
+        <div class="component-title">Callouts / Admonitions</div>
+        <div class="callout callout-info">
+          <i class="ph-light ph-info" style="font-size:16px;flex-shrink:0;"></i>
+          <div style="font-size:13px;"><strong style="color:#F0EDF5;">Info:</strong> All API responses follow the ApiResponse wrapper pattern.</div>
+        </div>
+        <div class="callout callout-warning">
+          <i class="ph-light ph-warning" style="font-size:16px;flex-shrink:0;"></i>
+          <div style="font-size:13px;"><strong style="color:#F0EDF5;">Warning:</strong> The Transactions API is in development and subject to change.</div>
+        </div>
+        <div class="callout callout-success">
+          <i class="ph-light ph-check-circle" style="font-size:16px;flex-shrink:0;"></i>
+          <div style="font-size:13px;"><strong style="color:#F0EDF5;">Tip:</strong> Use the <code style="background:rgba(93,253,203,0.1);padding:2px 6px;border-radius:4px;font-family:'JetBrains Mono';font-size:12px;">baseCurrency</code> field for automatic conversion.</div>
+        </div>
+      </div>
+
+      <!-- Param Table -->
+      <div class="component-card">
+        <div class="component-title">Parameter Table</div>
+        <table class="api-param-table">
+          <thead>
+            <tr>
+              <th>Field</th>
+              <th>Type</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="param-name">userId</span></td>
+              <td><span class="param-type">uuid</span></td>
+              <td><span class="param-required">required</span></td>
+            </tr>
+            <tr>
+              <td><span class="param-name">name</span></td>
+              <td><span class="param-type">string</span></td>
+              <td><span class="param-required">required</span></td>
+            </tr>
+            <tr>
+              <td><span class="param-name">type</span></td>
+              <td><span class="param-type">enum</span></td>
+              <td><span class="param-required">required</span></td>
+            </tr>
+            <tr>
+              <td><span class="param-name">initialBalance</span></td>
+              <td><span class="param-type">number</span></td>
+              <td><span class="param-optional">optional</span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="component-title" style="margin-top:16px;">Enum Badge</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <span style="font-family:'JetBrains Mono';font-size:12px;background:rgba(93,253,203,0.1);color:#5DFDCB;padding:4px 10px;border-radius:6px;border:1px solid rgba(93,253,203,0.15);">BANK</span>
+          <span style="font-family:'JetBrains Mono';font-size:12px;background:rgba(176,122,255,0.1);color:#B07AFF;padding:4px 10px;border-radius:6px;border:1px solid rgba(176,122,255,0.15);">CREDIT</span>
+          <span style="font-family:'JetBrains Mono';font-size:12px;background:rgba(255,176,122,0.1);color:#FFB07A;padding:4px 10px;border-radius:6px;border:1px solid rgba(255,176,122,0.15);">CRYPTO</span>
+          <span style="font-family:'JetBrains Mono';font-size:12px;background:rgba(255,107,157,0.1);color:#FF6B9D;padding:4px 10px;border-radius:6px;border:1px solid rgba(255,107,157,0.15);">CASH</span>
+          <span style="font-family:'JetBrains Mono';font-size:12px;background:rgba(155,143,184,0.1);color:#9B8FB8;padding:4px 10px;border-radius:6px;border:1px solid rgba(155,143,184,0.15);">INVESTMENT</span>
+        </div>
+      </div>
+
+      <!-- Breadcrumb & Navigation -->
+      <div class="component-card">
+        <div class="component-title">Breadcrumb</div>
+        <div class="breadcrumb" style="margin-bottom:20px;">
+          Develop <i class="ph-light ph-caret-right" style="font-size:10px;"></i>
+          API Reference <i class="ph-light ph-caret-right" style="font-size:10px;"></i>
+          <span class="breadcrumb-current">Accounts</span>
+        </div>
+
+        <div class="component-title">Content Tabs</div>
+        <div class="content-tabs" style="margin-bottom:20px;">
+          <div class="content-tab active">Overview</div>
+          <div class="content-tab">Endpoints</div>
+          <div class="content-tab">Schemas</div>
+          <div class="content-tab">Examples</div>
+        </div>
+
+        <div class="component-title">Page Navigation (Prev/Next)</div>
+        <div style="display:flex;gap:12px;">
+          <div style="flex:1;padding:14px;border:1px solid rgba(255,255,255,0.06);border-radius:12px;cursor:pointer;">
+            <div style="font-size:11px;color:#9B8FB8;margin-bottom:4px;">← Previous</div>
+            <div style="font-size:14px;font-weight:500;color:#F0EDF5;">Users API</div>
+          </div>
+          <div style="flex:1;padding:14px;border:1px solid rgba(93,253,203,0.15);border-radius:12px;text-align:right;cursor:pointer;">
+            <div style="font-size:11px;color:#9B8FB8;margin-bottom:4px;">Next →</div>
+            <div style="font-size:14px;font-weight:500;color:#5DFDCB;">Transactions API</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Version Selector & Language Switcher -->
+      <div class="component-card">
+        <div class="component-title">Version Selector</div>
+        <div style="display:flex;gap:12px;margin-bottom:20px;">
+          <div class="sidebar-version" style="margin-bottom:0;">
+            <i class="ph-light ph-tag" style="font-size:12px;"></i>
+            v1.0.0
+            <i class="ph-light ph-caret-down" style="font-size:10px;"></i>
+          </div>
+          <div style="font-family:'JetBrains Mono';font-size:12px;color:#9B8FB8;background:rgba(42,31,61,0.4);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:6px 12px;display:flex;align-items:center;gap:6px;">
+            v0.9.0
+          </div>
+        </div>
+
+        <div class="component-title">Language Switcher</div>
+        <div style="display:flex;gap:12px;margin-bottom:20px;">
+          <div class="navbar-lang" style="background:rgba(93,253,203,0.08);border-color:rgba(93,253,203,0.2);color:#5DFDCB;">
+            <i class="ph-light ph-globe-simple" style="font-size:14px;"></i>
+            EN
+          </div>
+          <div class="navbar-lang">
+            <i class="ph-light ph-globe-simple" style="font-size:14px;"></i>
+            TH
+          </div>
+        </div>
+
+        <div class="component-title">Search Modal (⌘K)</div>
+        <div style="background:rgba(42,31,61,0.8);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:16px;backdrop-filter:blur(24px);">
+          <div style="display:flex;align-items:center;gap:10px;background:rgba(13,11,26,0.6);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:10px 14px;margin-bottom:12px;">
+            <i class="ph-light ph-magnifying-glass" style="font-size:16px;color:#9B8FB8;"></i>
+            <span style="font-size:14px;color:#9B8FB8;">Search APIs, guides, features...</span>
+          </div>
+          <div style="font-size:12px;color:#9B8FB8;padding:6px 8px;">
+            <div style="display:flex;align-items:center;gap:8px;padding:8px;border-radius:8px;background:rgba(93,253,203,0.06);">
+              <i class="ph-light ph-terminal" style="font-size:14px;color:#5DFDCB;"></i>
+              <span style="color:#F0EDF5;">Users API</span>
+              <span style="margin-left:auto;font-size:11px;color:#9B8FB8;">Develop › API</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;padding:8px;">
+              <i class="ph-light ph-wallet" style="font-size:14px;color:#9B8FB8;"></i>
+              <span style="color:#9B8FB8;">Account Management</span>
+              <span style="margin-left:auto;font-size:11px;color:#9B8FB8;">Product › Features</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="divider"></div>
+
+
+  <!-- ================================================================
+       SECTION 5 — LIGHT MODE
+       ================================================================ -->
+  <div class="section light-section">
+    <div class="section-title">5. Light Mode Variant</div>
+    <div class="section-desc">
+      Same layout structure with Light Mode color tokens from the Orbit Design System. Activated via prefers-color-scheme or manual toggle.
+    </div>
+
+    <div class="annotation" style="color:#6C3AE0;">Desktop · 1440px · /en/develop/api/users · Light</div>
+    <div class="frame" style="height:500px;display:flex;flex-direction:column;">
+
+      <!-- Light Navbar -->
+      <div class="mock-navbar">
+        <div class="navbar-left">
+          <div class="navbar-logo">
+            <div class="navbar-logo-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" fill="#FFFFFF" width="16" height="16"><g transform="translate(0,1024) scale(0.1,-0.1)"><path d="M7705 10159 c-252 -37z"/></g></svg>
+            </div>
+            <div class="navbar-logo-text">Orbit</div>
+          </div>
+          <div class="navbar-section-switch">
+            <div class="navbar-section-btn active">Develop</div>
+            <div class="navbar-section-btn">Product</div>
+          </div>
+        </div>
+        <div class="navbar-right">
+          <div class="navbar-search">
+            <i class="ph-light ph-magnifying-glass" style="font-size:14px;"></i>
+            Search documentation...
+            <kbd style="color:#6B5F82;">⌘K</kbd>
+          </div>
+          <div class="navbar-lang">
+            <i class="ph-light ph-globe-simple" style="font-size:14px;"></i>
+            EN
+            <i class="ph-light ph-caret-down" style="font-size:10px;"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="layout-body" style="flex:1;">
+        <!-- Light Sidebar -->
+        <div class="mock-sidebar">
+          <div class="sidebar-version">
+            <i class="ph-light ph-tag" style="font-size:12px;"></i>
+            v1.0.0
+          </div>
+          <div class="sidebar-section">
+            <div class="sidebar-section-title">API Reference</div>
+            <a class="sidebar-link active" href="#">Users</a>
+            <a class="sidebar-link" href="#">Accounts</a>
+          </div>
+        </div>
+
+        <!-- Light Content -->
+        <div class="mock-content">
+          <div style="font-size:32px;font-weight:700;color:#1A1528;margin-bottom:8px;">Users API</div>
+          <div style="font-size:16px;color:#6B5F82;margin-bottom:24px;">Manage user registration and retrieval.</div>
+          <div style="background:#EEEBF5;border:1px solid rgba(0,0,0,0.06);border-radius:16px;overflow:hidden;">
+            <div style="display:flex;align-items:center;gap:12px;padding:14px 20px;border-bottom:1px solid rgba(0,0,0,0.04);">
+              <span style="font-family:'JetBrains Mono';font-size:12px;font-weight:600;background:rgba(108,58,224,0.12);color:#6C3AE0;padding:4px 10px;border-radius:6px;">POST</span>
+              <span style="font-family:'JetBrains Mono';font-size:14px;color:#1A1528;">/api/v1/users</span>
+            </div>
+            <div style="padding:16px 20px;font-size:13px;color:#6B5F82;">
+              Creates a new user from Clerk identity sync.
+            </div>
+          </div>
+        </div>
+
+        <!-- Light TOC -->
+        <div class="mock-toc">
+          <div class="toc-title">On this page</div>
+          <a class="toc-link active" href="#">Users API</a>
+          <a class="toc-link" href="#">POST Register</a>
+          <a class="toc-link" href="#">GET by Clerk ID</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="divider"></div>
+
+
+  <!-- ================================================================
+       SECTION 6 — MOBILE LAYOUT
+       ================================================================ -->
+  <div class="section">
+    <div class="section-title">6. Mobile Layout</div>
+    <div class="section-desc">
+      Responsive mobile layout with hamburger menu, collapsible sidebar as drawer, and stacked content. TOC hidden on mobile.
+    </div>
+
+    <div style="display:flex;gap:32px;">
+
+      <!-- Mobile: Closed sidebar -->
+      <div>
+        <div class="annotation">Mobile · 375px · Sidebar closed</div>
+        <div class="mobile-frame">
+          <div class="mobile-navbar">
+            <div style="display:flex;align-items:center;gap:12px;">
+              <i class="ph-light ph-list" style="font-size:20px;color:#9B8FB8;"></i>
+              <div class="navbar-logo" style="gap:8px;">
+                <div class="navbar-logo-icon" style="width:28px;height:28px;border-radius:8px;">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" fill="#0D0B1A" width="14" height="14"><g transform="translate(0,1024) scale(0.1,-0.1)"><path d="M7705 10159 c-252 -37z"/></g></svg>
+                </div>
+                <div class="navbar-logo-text" style="font-size:15px;">Orbit</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:12px;">
+              <i class="ph-light ph-magnifying-glass" style="font-size:18px;color:#9B8FB8;"></i>
+              <i class="ph-light ph-globe-simple" style="font-size:18px;color:#9B8FB8;"></i>
+            </div>
+          </div>
+
+          <!-- Section Switch -->
+          <div style="padding:12px 16px;border-bottom:1px solid rgba(255,255,255,0.04);">
+            <div class="navbar-section-switch" style="width:100%;justify-content:center;">
+              <div class="navbar-section-btn active" style="flex:1;text-align:center;">Develop</div>
+              <div class="navbar-section-btn" style="flex:1;text-align:center;">Product</div>
+            </div>
+          </div>
+
+          <!-- Content -->
+          <div style="padding:20px 16px;">
+            <div class="breadcrumb" style="font-size:12px;">
+              API <i class="ph-light ph-caret-right" style="font-size:8px;"></i>
+              <span class="breadcrumb-current">Users</span>
+            </div>
+            <div style="font-size:24px;font-weight:700;margin-bottom:8px;">Users API</div>
+            <div style="font-size:14px;color:#9B8FB8;margin-bottom:20px;line-height:1.5;">
+              Manage user registration and retrieval via Clerk.
+            </div>
+
+            <!-- Mobile Endpoint -->
+            <div class="api-endpoint" style="margin-bottom:12px;">
+              <div class="api-endpoint-header" style="padding:12px 14px;">
+                <span class="api-method post" style="font-size:11px;padding:3px 8px;">POST</span>
+                <span class="api-path" style="font-size:12px;">/api/v1/users</span>
+              </div>
+            </div>
+            <div class="api-endpoint">
+              <div class="api-endpoint-header" style="padding:12px 14px;">
+                <span class="api-method get" style="font-size:11px;padding:3px 8px;">GET</span>
+                <span class="api-path" style="font-size:12px;">/api/v1/users/clerk/{id}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile: Open sidebar -->
+      <div>
+        <div class="annotation">Mobile · 375px · Sidebar open (drawer)</div>
+        <div class="mobile-frame" style="position:relative;">
+          <div class="mobile-navbar" style="position:relative;z-index:2;">
+            <div style="display:flex;align-items:center;gap:12px;">
+              <i class="ph-light ph-x" style="font-size:20px;color:#5DFDCB;"></i>
+              <div class="navbar-logo" style="gap:8px;">
+                <div class="navbar-logo-icon" style="width:28px;height:28px;border-radius:8px;">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" fill="#0D0B1A" width="14" height="14"><g transform="translate(0,1024) scale(0.1,-0.1)"><path d="M7705 10159 c-252 -37z"/></g></svg>
+                </div>
+                <div class="navbar-logo-text" style="font-size:15px;">Orbit</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Drawer overlay -->
+          <div style="position:absolute;top:52px;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:1;"></div>
+
+          <!-- Sidebar drawer -->
+          <div style="position:absolute;top:52px;left:0;width:280px;bottom:0;background:#12101E;border-right:1px solid rgba(255,255,255,0.06);z-index:2;padding:16px;overflow-y:auto;">
+            <div class="sidebar-version" style="margin-bottom:16px;">
+              <i class="ph-light ph-tag" style="font-size:12px;"></i>
+              v1.0.0
+            </div>
+            <div class="sidebar-section">
+              <div class="sidebar-section-title">Getting Started</div>
+              <a class="sidebar-link" href="#">Quick Start</a>
+              <a class="sidebar-link" href="#">Authentication</a>
+            </div>
+            <div class="sidebar-section">
+              <div class="sidebar-section-title">API Reference</div>
+              <a class="sidebar-link active" href="#">Users</a>
+              <a class="sidebar-link" href="#">Accounts</a>
+            </div>
+            <div class="sidebar-section">
+              <div class="sidebar-section-title">Architecture</div>
+              <a class="sidebar-link" href="#">System Design</a>
+              <a class="sidebar-link" href="#">Database</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile: Product section -->
+      <div>
+        <div class="annotation">Mobile · 375px · Product section</div>
+        <div class="mobile-frame">
+          <div class="mobile-navbar">
+            <div style="display:flex;align-items:center;gap:12px;">
+              <i class="ph-light ph-list" style="font-size:20px;color:#9B8FB8;"></i>
+              <div class="navbar-logo" style="gap:8px;">
+                <div class="navbar-logo-icon" style="width:28px;height:28px;border-radius:8px;">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" fill="#0D0B1A" width="14" height="14"><g transform="translate(0,1024) scale(0.1,-0.1)"><path d="M7705 10159 c-252 -37z"/></g></svg>
+                </div>
+                <div class="navbar-logo-text" style="font-size:15px;">Orbit</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:12px;">
+              <i class="ph-light ph-magnifying-glass" style="font-size:18px;color:#9B8FB8;"></i>
+              <i class="ph-light ph-globe-simple" style="font-size:18px;color:#9B8FB8;"></i>
+            </div>
+          </div>
+
+          <div style="padding:12px 16px;border-bottom:1px solid rgba(255,255,255,0.04);">
+            <div class="navbar-section-switch" style="width:100%;justify-content:center;">
+              <div class="navbar-section-btn" style="flex:1;text-align:center;">Develop</div>
+              <div class="navbar-section-btn active" style="flex:1;text-align:center;">Product</div>
+            </div>
+          </div>
+
+          <div style="padding:20px 16px;">
+            <div style="font-size:24px;font-weight:700;margin-bottom:8px;">What is Orbit?</div>
+            <div style="font-size:14px;color:#9B8FB8;margin-bottom:20px;line-height:1.5;">
+              Your personal finance universe, simplified.
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+              <div style="background:rgba(42,31,61,0.3);border:1px solid rgba(255,255,255,0.04);border-radius:12px;padding:14px;text-align:center;">
+                <i class="ph-light ph-bank" style="font-size:24px;color:#5DFDCB;display:block;margin-bottom:6px;"></i>
+                <div style="font-size:12px;font-weight:500;">Multi-Account</div>
+              </div>
+              <div style="background:rgba(42,31,61,0.3);border:1px solid rgba(255,255,255,0.04);border-radius:12px;padding:14px;text-align:center;">
+                <i class="ph-light ph-globe" style="font-size:24px;color:#B07AFF;display:block;margin-bottom:6px;"></i>
+                <div style="font-size:12px;font-weight:500;">Multi-Currency</div>
+              </div>
+              <div style="background:rgba(42,31,61,0.3);border:1px solid rgba(255,255,255,0.04);border-radius:12px;padding:14px;text-align:center;">
+                <i class="ph-light ph-shield-check" style="font-size:24px;color:#FFB07A;display:block;margin-bottom:6px;"></i>
+                <div style="font-size:12px;font-weight:500;">Secure</div>
+              </div>
+              <div style="background:rgba(42,31,61,0.3);border:1px solid rgba(255,255,255,0.04);border-radius:12px;padding:14px;text-align:center;">
+                <i class="ph-light ph-currency-btc" style="font-size:24px;color:#FF6B9D;display:block;margin-bottom:6px;"></i>
+                <div style="font-size:12px;font-weight:500;">Crypto</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="divider"></div>
+
+
+  <!-- ================================================================
+       SECTION 7 — i18n & FILE STRUCTURE
+       ================================================================ -->
+  <div class="section">
+    <div class="section-title">7. i18n & Route Structure</div>
+    <div class="section-desc">
+      File-based routing with [locale] segment for next-intl. English and Thai with extensible structure for future languages.
+    </div>
+
+    <div class="components-grid">
+      <div class="component-card">
+        <div class="component-title">Route Map</div>
+        <div class="i18n-tree">
+          <span class="folder">docs/app/</span><br>
+          &nbsp;&nbsp;<span class="folder">[locale]/</span> <span class="desc">← dynamic: en, th, ...</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">layout.tsx</span> <span class="desc">← navbar + sidebar shell</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">page.tsx</span> <span class="desc">← landing (/en/)</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="folder">develop/</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">page.tsx</span> <span class="desc">← developer hub</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="folder">getting-started/</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">page.tsx</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="folder">api/</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="folder">users/</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">page.tsx</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="folder">accounts/</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">page.tsx</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="folder">architecture/</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">page.tsx</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="folder">product/</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">page.tsx</span> <span class="desc">← product hub</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="folder">overview/</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">page.tsx</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="folder">features/</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">page.tsx</span><br>
+          <br>
+          <span class="folder">messages/</span><br>
+          &nbsp;&nbsp;<span class="file">en.json</span> <span class="desc">← English translations</span><br>
+          &nbsp;&nbsp;<span class="file">th.json</span> <span class="desc">← Thai translations</span><br>
+          <br>
+          <span class="folder">components/</span><br>
+          &nbsp;&nbsp;<span class="folder">ui/</span> <span class="desc">← shadcn/ui components</span><br>
+          &nbsp;&nbsp;<span class="file">Navbar.tsx</span><br>
+          &nbsp;&nbsp;<span class="file">Sidebar.tsx</span><br>
+          &nbsp;&nbsp;<span class="file">ApiEndpoint.tsx</span><br>
+          &nbsp;&nbsp;<span class="file">CodeBlock.tsx</span><br>
+          &nbsp;&nbsp;<span class="file">OnPageToc.tsx</span><br>
+          &nbsp;&nbsp;<span class="file">LanguageSwitcher.tsx</span><br>
+          &nbsp;&nbsp;<span class="file">SearchDialog.tsx</span><br>
+        </div>
+      </div>
+
+      <div class="component-card">
+        <div class="component-title">URL Examples</div>
+        <div style="font-family:'JetBrains Mono';font-size:12px;line-height:2.2;">
+          <div style="color:#9B8FB8;">Landing</div>
+          <div style="color:#5DFDCB;">/en/</div>
+          <div style="color:#5DFDCB;">/th/</div>
+          <br>
+          <div style="color:#9B8FB8;">Developer Portal</div>
+          <div style="color:#5DFDCB;">/en/develop/</div>
+          <div style="color:#5DFDCB;">/en/develop/getting-started</div>
+          <div style="color:#5DFDCB;">/en/develop/api/users</div>
+          <div style="color:#5DFDCB;">/en/develop/api/accounts</div>
+          <div style="color:#5DFDCB;">/en/develop/architecture</div>
+          <br>
+          <div style="color:#9B8FB8;">Product Docs</div>
+          <div style="color:#B07AFF;">/en/product/</div>
+          <div style="color:#B07AFF;">/en/product/overview</div>
+          <div style="color:#B07AFF;">/en/product/features</div>
+          <br>
+          <div style="color:#9B8FB8;">Thai Versions</div>
+          <div style="color:#FFB07A;">/th/develop/api/users</div>
+          <div style="color:#FFB07A;">/th/product/overview</div>
+        </div>
+
+        <div class="component-title" style="margin-top:24px;">Tech Stack</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;">
+          <span style="font-size:12px;background:rgba(93,253,203,0.1);color:#5DFDCB;padding:6px 12px;border-radius:8px;border:1px solid rgba(93,253,203,0.15);">Next.js 16</span>
+          <span style="font-size:12px;background:rgba(176,122,255,0.1);color:#B07AFF;padding:6px 12px;border-radius:8px;border:1px solid rgba(176,122,255,0.15);">Tailwind v4</span>
+          <span style="font-size:12px;background:rgba(255,176,122,0.1);color:#FFB07A;padding:6px 12px;border-radius:8px;border:1px solid rgba(255,176,122,0.15);">DaisyUI</span>
+          <span style="font-size:12px;background:rgba(255,107,157,0.1);color:#FF6B9D;padding:6px 12px;border-radius:8px;border:1px solid rgba(255,107,157,0.15);">shadcn/ui</span>
+          <span style="font-size:12px;background:rgba(155,143,184,0.1);color:#9B8FB8;padding:6px 12px;border-radius:8px;border:1px solid rgba(155,143,184,0.15);">next-intl</span>
+          <span style="font-size:12px;background:rgba(155,143,184,0.1);color:#9B8FB8;padding:6px 12px;border-radius:8px;border:1px solid rgba(155,143,184,0.15);">Lucide Icons</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="divider"></div>
+
+
+  <!-- ================================================================
+       SECTION 8 — METHOD COLOR SYSTEM
+       ================================================================ -->
+  <div class="section">
+    <div class="section-title">8. HTTP Method Color System</div>
+    <div class="section-desc">
+      Consistent color coding for HTTP methods across the entire documentation site — sidebar badges, endpoint cards, and code blocks.
+    </div>
+
+    <div style="display:flex;gap:24px;flex-wrap:wrap;">
+      <div style="text-align:center;">
+        <div style="width:100px;height:60px;background:rgba(93,253,203,0.15);border:1px solid rgba(93,253,203,0.3);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:8px;">
+          <span style="font-family:'JetBrains Mono';font-size:14px;font-weight:600;color:#5DFDCB;">GET</span>
+        </div>
+        <div style="font-family:'JetBrains Mono';font-size:11px;color:#5DFDCB;">#5DFDCB</div>
+        <div style="font-size:12px;color:#9B8FB8;">Cosmic Cyan</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="width:100px;height:60px;background:rgba(176,122,255,0.15);border:1px solid rgba(176,122,255,0.3);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:8px;">
+          <span style="font-family:'JetBrains Mono';font-size:14px;font-weight:600;color:#B07AFF;">POST</span>
+        </div>
+        <div style="font-family:'JetBrains Mono';font-size:11px;color:#B07AFF;">#B07AFF</div>
+        <div style="font-size:12px;color:#9B8FB8;">Lo-fi Purple</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="width:100px;height:60px;background:rgba(255,176,122,0.15);border:1px solid rgba(255,176,122,0.3);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:8px;">
+          <span style="font-family:'JetBrains Mono';font-size:14px;font-weight:600;color:#FFB07A;">PUT</span>
+        </div>
+        <div style="font-family:'JetBrains Mono';font-size:11px;color:#FFB07A;">#FFB07A</div>
+        <div style="font-size:12px;color:#9B8FB8;">Warm Peach</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="width:100px;height:60px;background:rgba(255,176,122,0.15);border:1px solid rgba(255,176,122,0.3);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:8px;">
+          <span style="font-family:'JetBrains Mono';font-size:14px;font-weight:600;color:#FFB07A;">PATCH</span>
+        </div>
+        <div style="font-family:'JetBrains Mono';font-size:11px;color:#FFB07A;">#FFB07A</div>
+        <div style="font-size:12px;color:#9B8FB8;">Warm Peach</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="width:100px;height:60px;background:rgba(255,107,157,0.15);border:1px solid rgba(255,107,157,0.3);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:8px;">
+          <span style="font-family:'JetBrains Mono';font-size:14px;font-weight:600;color:#FF6B9D;">DELETE</span>
+        </div>
+        <div style="font-family:'JetBrains Mono';font-size:11px;color:#FF6B9D;">#FF6B9D</div>
+        <div style="font-size:12px;color:#9B8FB8;">Sunset Pink</div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
