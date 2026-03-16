@@ -90,6 +90,6 @@ Cross-cutting concerns live in `common/` and `config/`.
 Before creating or modifying code, you MUST:
 
 1. **Duplicate Check:** Search to ensure the class/function/interface doesn't already exist.
-2. **Path Check:** Place files in the correct hexagonal layer (`api/`, `core/`, `infrastructure/`) as defined in `architect/clean_code_guidelines.md` and `architect/structure.md`.
+2. **Path Check:** Place files in the correct hexagonal layer (`api/`, `core/`, `infrastructure/`) as defined in `architect/architecture-specification.md`.
 3. **Style Check:** Use Java 25 records for DTOs, constructor injection, thin controllers.
-4. **GEMINI.md is Primary:** `GEMINI.md` is the source of truth for all architectural decisions, rules, and conventions. If you update this `CLAUDE.md` file, ensure it stays in sync with `GEMINI.md`. If there is a conflict, `GEMINI.md` takes precedence.
+4. **Architecture Spec is Primary:** `architect/architecture-specification.md` is the single source of truth for all architectural decisions, module contracts, and conventions. It supersedes `structure.md` and `clean_code_guidelines.md` where they conflict. Keep `CLAUDE.md` and `GEMINI.md` in sync with each other.
