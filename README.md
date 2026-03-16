@@ -1,12 +1,16 @@
-# Orbit Personal Finance API
+<p align="center">
+  <img src="assets/orbit-logo.svg" alt="Orbit" width="120" height="120" />
+</p>
 
-![CI Pipeline](https://github.com/MrBT-nano/orbit-api/actions/workflows/ai-pre-commit-ci.yml/badge.svg)
+<h1 align="center">Orbit Personal Finance API</h1>
+
+![CI Pipeline](https://github.com/MrBT-nano/orbit-api/actions/workflows/pre-commit-ci.yml/badge.svg)
 ![Docs & Test Coverage](https://github.com/MrBT-nano/orbit-api/actions/workflows/docs-and-tests-cd.yml/badge.svg)
 ![CodeQL](https://github.com/MrBT-nano/orbit-api/actions/workflows/codeql.yml/badge.svg)
 [![codecov](https://codecov.io/gh/MrBT-nano/orbit-api/graph/badge.svg?token=p8pQDKGOWm)](https://codecov.io/gh/MrBT-nano/orbit-api)
 ![Dependabot](https://img.shields.io/badge/Dependabot-Enabled-blue?logo=dependabot)
 ![Java Version](https://img.shields.io/badge/Java-25-blue?logo=java)
-![Spring Boot](https://img.shields.io/badge/Spring_Boot-4.0.1-brightgreen?logo=springboot)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-4.0.3-brightgreen?logo=springboot)
 
 Welcome to the **Orbit Personal Finance Management System**. This repository contains the core API (backend engine) responsible for managing financial ledgers, tracking multi-currency assets (including crypto), and orchestrating payments.
 
@@ -48,9 +52,10 @@ To run the full test suite and automatically generate a local JaCoCo coverage re
 
 This project adheres to elite coding standards. For detailed rules on how to write code, structure folders, and use AI agents within this repository, please read the following:
 
-1.  **[GEMINI.md](./GEMINI.md)** - Primary rules, AI hooks, and workspace context.
-2.  **[CLAUDE.md](./CLAUDE.md)** - Synced AI agent guidelines.
-3.  **[Architecture Guidelines](./architect/clean_code_guidelines.md)** - Hexagonal Architecture, DTOs, and clean code principles.
+1.  **[Architecture Specification](./architect/architecture-specification.md)** - Primary source of truth for all module contracts, conventions, and dependency rules.
+2.  **[GEMINI.md](./GEMINI.md)** - AI hooks and workspace context for Gemini.
+3.  **[CLAUDE.md](./CLAUDE.md)** - AI agent guidelines for Claude.
+4.  **[Clean Code Guidelines](./architect/clean_code_guidelines.md)** - Hexagonal Architecture, DTOs, and clean code principles.
 
 ## 🛡️ Security & CI/CD
 
