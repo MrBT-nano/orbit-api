@@ -5,6 +5,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
@@ -18,6 +19,7 @@ import com.mrbt.orbit.audit.core.model.enums.NotificationChannel;
 import com.mrbt.orbit.audit.core.model.enums.NotificationType;
 import com.mrbt.orbit.audit.core.port.out.NotificationBroadcastPort;
 import com.mrbt.orbit.audit.core.port.out.NotificationRepositoryPort;
+import com.mrbt.orbit.common.core.model.PageResult;
 
 @ExtendWith(MockitoExtension.class)
 class NotificationServiceTest {
@@ -57,6 +59,21 @@ class NotificationServiceTest {
 		UUID userId = UUID.randomUUID();
 		service.markAllAsRead(userId);
 		verify(repositoryPort).markAllAsReadByUserId(userId);
+	}
+
+	@Test
+	void getNotificationsByUserId_returnsPageResult() {
+		UUID userId = UUID.randomUUID();
+		Notification n = Notification.builder().userId(userId).type(NotificationType.SYSTEM).title("Test")
+				.message("Hello").build();
+		PageResult<Notification> page = new PageResult<>(List.of(n), 1L, 1, 0, 20);
+
+		when(repositoryPort.findByUserId(userId, 0, 20)).thenReturn(page);
+
+		PageResult<Notification> result = service.getNotificationsByUserId(userId, 0, 20);
+
+		assertThat(result.content()).hasSize(1);
+		assertThat(result.totalElements()).isEqualTo(1L);
 	}
 
 	@Test
