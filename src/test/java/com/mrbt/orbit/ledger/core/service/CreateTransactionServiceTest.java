@@ -3,6 +3,7 @@ package com.mrbt.orbit.ledger.core.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -14,7 +15,6 @@ import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -54,7 +54,6 @@ class CreateTransactionServiceTest {
 				.build();
 
 		when(accountRepositoryPort.findById(accountId)).thenReturn(Optional.of(account));
-		when(accountRepositoryPort.save(any(Account.class))).thenAnswer(inv -> inv.getArgument(0));
 		when(transactionRepositoryPort.save(any(Transaction.class))).thenAnswer(inv -> inv.getArgument(0));
 
 		Transaction result = createTransactionService.createTransaction(tx);
@@ -69,38 +68,32 @@ class CreateTransactionServiceTest {
 	void createTransaction_updatesBalanceForCompletedIncome() {
 		Account account = buildActiveAccount(new BigDecimal("500.00"));
 		UUID accountId = account.getId();
+		BigDecimal amount = new BigDecimal("200.00");
 
-		Transaction tx = Transaction.builder().accountId(accountId).amount(new BigDecimal("200.00")).currencyCode("USD")
-				.build();
+		Transaction tx = Transaction.builder().accountId(accountId).amount(amount).currencyCode("USD").build();
 
 		when(accountRepositoryPort.findById(accountId)).thenReturn(Optional.of(account));
-		when(accountRepositoryPort.save(any(Account.class))).thenAnswer(inv -> inv.getArgument(0));
 		when(transactionRepositoryPort.save(any(Transaction.class))).thenAnswer(inv -> inv.getArgument(0));
 
 		createTransactionService.createTransaction(tx);
 
-		ArgumentCaptor<Account> captor = ArgumentCaptor.forClass(Account.class);
-		verify(accountRepositoryPort).save(captor.capture());
-		assertThat(captor.getValue().getCurrentBalance()).isEqualByComparingTo("700.00");
+		verify(accountRepositoryPort).updateBalance(eq(accountId), eq(amount));
 	}
 
 	@Test
 	void createTransaction_updatesBalanceForCompletedExpense() {
 		Account account = buildActiveAccount(new BigDecimal("500.00"));
 		UUID accountId = account.getId();
+		BigDecimal amount = new BigDecimal("-150.00");
 
-		Transaction tx = Transaction.builder().accountId(accountId).amount(new BigDecimal("-150.00"))
-				.currencyCode("USD").build();
+		Transaction tx = Transaction.builder().accountId(accountId).amount(amount).currencyCode("USD").build();
 
 		when(accountRepositoryPort.findById(accountId)).thenReturn(Optional.of(account));
-		when(accountRepositoryPort.save(any(Account.class))).thenAnswer(inv -> inv.getArgument(0));
 		when(transactionRepositoryPort.save(any(Transaction.class))).thenAnswer(inv -> inv.getArgument(0));
 
 		createTransactionService.createTransaction(tx);
 
-		ArgumentCaptor<Account> captor = ArgumentCaptor.forClass(Account.class);
-		verify(accountRepositoryPort).save(captor.capture());
-		assertThat(captor.getValue().getCurrentBalance()).isEqualByComparingTo("350.00");
+		verify(accountRepositoryPort).updateBalance(eq(accountId), eq(amount));
 	}
 
 	@Test
@@ -117,7 +110,7 @@ class CreateTransactionServiceTest {
 
 		createTransactionService.createTransaction(tx);
 
-		verify(accountRepositoryPort, never()).save(any());
+		verify(accountRepositoryPort, never()).updateBalance(any(), any());
 	}
 
 	@Test

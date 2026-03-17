@@ -1,5 +1,6 @@
 package com.mrbt.orbit.ledger.infrastructure.repository;
 
+import com.mrbt.orbit.common.exception.ResourceNotFoundException;
 import com.mrbt.orbit.ledger.core.model.Account;
 import com.mrbt.orbit.ledger.core.port.out.AccountRepositoryPort;
 import com.mrbt.orbit.ledger.infrastructure.entity.AccountEntity;
@@ -7,6 +8,7 @@ import com.mrbt.orbit.ledger.infrastructure.mapper.AccountMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -39,5 +41,13 @@ public class AccountRepositoryAdapter implements AccountRepositoryPort {
 	@Override
 	public boolean existsByUserIdAndName(UUID userId, String name) {
 		return springDataRepository.existsByUserIdAndName(userId, name);
+	}
+
+	@Override
+	public void updateBalance(UUID accountId, BigDecimal amount) {
+		int updated = springDataRepository.updateBalanceAtomically(accountId, amount);
+		if (updated == 0) {
+			throw new ResourceNotFoundException("Account", "ID", accountId);
+		}
 	}
 }

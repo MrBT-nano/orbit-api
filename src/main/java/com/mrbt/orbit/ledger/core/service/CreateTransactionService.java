@@ -52,9 +52,7 @@ public class CreateTransactionService implements CreateTransactionUseCase {
 		// Positive amount = Income (increases balance)
 		// Negative amount = Expense (decreases balance)
 		if (transaction.getStatus() == TransactionStatus.COMPLETED) {
-			BigDecimal newBalance = account.getCurrentBalance().add(transaction.getAmount());
-			account.setCurrentBalance(newBalance);
-			accountRepositoryPort.save(account);
+			accountRepositoryPort.updateBalance(transaction.getAccountId(), transaction.getAmount());
 		}
 
 		// 5. Save the transaction log

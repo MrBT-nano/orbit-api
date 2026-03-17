@@ -12,6 +12,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -44,5 +45,8 @@ public class AccountEntity extends SoftDeletableEntity {
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
 	private AccountStatus status;
+
+	@Version
+	private Long version;
 
 }

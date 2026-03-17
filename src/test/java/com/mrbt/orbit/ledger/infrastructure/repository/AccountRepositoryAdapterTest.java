@@ -1,8 +1,10 @@
 package com.mrbt.orbit.ledger.infrastructure.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -13,6 +15,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.mrbt.orbit.common.exception.ResourceNotFoundException;
 import com.mrbt.orbit.ledger.core.model.Account;
 import com.mrbt.orbit.ledger.core.model.enums.AccountType;
 import com.mrbt.orbit.ledger.infrastructure.entity.AccountEntity;
@@ -88,6 +91,27 @@ class AccountRepositoryAdapterTest {
 		when(springDataRepository.existsByUserIdAndName(userId, "Savings")).thenReturn(true);
 
 		assertThat(adapter.existsByUserIdAndName(userId, "Savings")).isTrue();
+	}
+
+	@Test
+	void updateBalance_delegatesToAtomicUpdate() {
+		UUID accountId = UUID.randomUUID();
+		BigDecimal amount = new BigDecimal("100.00");
+
+		when(springDataRepository.updateBalanceAtomically(accountId, amount)).thenReturn(1);
+
+		adapter.updateBalance(accountId, amount);
+	}
+
+	@Test
+	void updateBalance_throwsWhenAccountNotFound() {
+		UUID accountId = UUID.randomUUID();
+		BigDecimal amount = new BigDecimal("100.00");
+
+		when(springDataRepository.updateBalanceAtomically(accountId, amount)).thenReturn(0);
+
+		assertThatThrownBy(() -> adapter.updateBalance(accountId, amount)).isInstanceOf(ResourceNotFoundException.class)
+				.hasMessageContaining("Account");
 	}
 
 }
