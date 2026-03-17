@@ -1,5 +1,6 @@
 services:
   postgres:
+    container_name: postgres
     image: postgres:latest
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
@@ -16,6 +17,7 @@ services:
       retries: 5
 
   orbit-api:
+    container_name: orbit-api
     image: ghcr.io/cntm-labs/orbit-api:latest
     depends_on:
       postgres:
@@ -29,6 +31,7 @@ services:
       - '8080:8080'
 
   orbit-docs:
+    container_name: orbit-docs
     image: ghcr.io/cntm-labs/orbit-docs:latest
     ports:
       - '3000:3000'
