@@ -2,7 +2,6 @@ package com.mrbt.orbit.ledger.core.service;
 
 import com.mrbt.orbit.common.exception.BadRequestException;
 import com.mrbt.orbit.common.exception.ResourceNotFoundException;
-import com.mrbt.orbit.ledger.core.model.Account;
 import com.mrbt.orbit.ledger.core.model.Transaction;
 import com.mrbt.orbit.ledger.core.model.enums.TransactionStatus;
 import com.mrbt.orbit.ledger.core.port.in.CreateTransactionUseCase;
@@ -26,7 +25,7 @@ public class CreateTransactionService implements CreateTransactionUseCase {
 	@Transactional
 	public Transaction createTransaction(Transaction transaction) {
 		// 1. Validate associated account exists
-		Account account = accountRepositoryPort.findById(transaction.getAccountId())
+		accountRepositoryPort.findById(transaction.getAccountId())
 				.orElseThrow(() -> new ResourceNotFoundException("Account", "ID", transaction.getAccountId()));
 
 		// 2. Set defaults
