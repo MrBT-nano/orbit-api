@@ -33,7 +33,7 @@ jobs:
         uses: codecov/codecov-action@v5.5.2
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          slug: MrBT-nano/orbit-api
+          slug: cntm-labs/orbit-api
 
   generate-and-publish-docs:
     name: Build Next.js Docs & Publish to GH Pages
