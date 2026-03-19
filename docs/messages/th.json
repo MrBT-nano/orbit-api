@@ -40,6 +40,7 @@
 		"notifications": "การแจ้งเตือน",
 		"budgets": "งบประมาณ",
 		"goals": "เป้าหมาย",
+		"recurring_transactions": "ธุรกรรมประจำ",
 		"payments": "การชำระเงิน",
 		"architecture": "สถาปัตยกรรม",
 		"system_design": "การออกแบบระบบ",
@@ -148,7 +149,15 @@
 		"update_budget": "อัปเดตงบประมาณ",
 		"delete_budget": "ลบงบประมาณ",
 		"update_goal": "อัปเดตเป้าหมาย",
-		"cancel_goal": "ยกเลิกเป้าหมาย"
+		"cancel_goal": "ยกเลิกเป้าหมาย",
+		"recurring_transactions_api_title": "API ธุรกรรมประจำ",
+		"recurring_transactions_api_desc": "จัดการกฎธุรกรรมประจำและตารางเวลา สร้างกฎที่สร้างธุรกรรมอัตโนมัติตามความถี่ที่กำหนด พร้อมตัวเลือกยืนยันอัตโนมัติ",
+		"create_recurring": "สร้างกฎธุรกรรมประจำ",
+		"get_recurring_by_id": "ดึงข้อมูลกฎตาม ID",
+		"get_recurring_by_user": "ดึงข้อมูลกฎของผู้ใช้",
+		"update_recurring": "อัปเดตกฎ",
+		"toggle_pause_recurring": "สลับหยุดชั่วคราว/ดำเนินต่อ",
+		"cancel_recurring": "ยกเลิกกฎ"
 	},
 	"common": {
 		"previous": "ก่อนหน้า",

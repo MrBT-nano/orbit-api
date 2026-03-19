@@ -7,6 +7,7 @@ import {
 	Hexagon,
 	Key,
 	PiggyBank,
+	RefreshCw,
 	Rocket,
 	Tag,
 	Target,
@@ -166,6 +167,39 @@ export default function DevelopSidebar({ locale, mobile }: { locale: string; mob
 				{ method: "PATCH", label: "Contribute", href: `/${locale}/develop/api/goals` },
 				{ method: "PATCH", label: "Update Goal", href: `/${locale}/develop/api/goals` },
 				{ method: "DELETE", label: "Cancel Goal", href: `/${locale}/develop/api/goals` },
+			],
+		},
+		{
+			icon: RefreshCw,
+			label: t("recurring_transactions"),
+			basePath: `/${locale}/develop/api/recurring-transactions`,
+			items: [
+				{
+					method: "POST",
+					label: "Create Rule",
+					href: `/${locale}/develop/api/recurring-transactions`,
+				},
+				{ method: "GET", label: "Get Rule", href: `/${locale}/develop/api/recurring-transactions` },
+				{
+					method: "GET",
+					label: "User Rules",
+					href: `/${locale}/develop/api/recurring-transactions`,
+				},
+				{
+					method: "PATCH",
+					label: "Update Rule",
+					href: `/${locale}/develop/api/recurring-transactions`,
+				},
+				{
+					method: "PATCH",
+					label: "Pause/Resume",
+					href: `/${locale}/develop/api/recurring-transactions`,
+				},
+				{
+					method: "DELETE",
+					label: "Cancel Rule",
+					href: `/${locale}/develop/api/recurring-transactions`,
+				},
 			],
 		},
 	];

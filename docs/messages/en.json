@@ -40,6 +40,7 @@
 		"notifications": "Notifications",
 		"budgets": "Budgets",
 		"goals": "Goals",
+		"recurring_transactions": "Recurring Transactions",
 		"payments": "Payments",
 		"architecture": "Architecture",
 		"system_design": "System Design",
@@ -148,7 +149,15 @@
 		"update_budget": "Update Budget",
 		"delete_budget": "Delete Budget",
 		"update_goal": "Update Goal",
-		"cancel_goal": "Cancel Goal"
+		"cancel_goal": "Cancel Goal",
+		"recurring_transactions_api_title": "Recurring Transactions API",
+		"recurring_transactions_api_desc": "Manage recurring transaction rules and schedules. Create rules that automatically generate transactions at specified frequencies with optional auto-confirmation.",
+		"create_recurring": "Create Recurring Rule",
+		"get_recurring_by_id": "Get Rule by ID",
+		"get_recurring_by_user": "Get Rules by User",
+		"update_recurring": "Update Rule",
+		"toggle_pause_recurring": "Toggle Pause/Resume",
+		"cancel_recurring": "Cancel Rule"
 	},
 	"common": {
 		"previous": "Previous",

@@ -795,8 +795,8 @@ print(response.json())`,
 					href: `/${locale}/develop/api/budgets`,
 				}}
 				next={{
-					label: "Architecture",
-					href: `/${locale}/develop/architecture`,
+					label: "Recurring Transactions API",
+					href: `/${locale}/develop/api/recurring-transactions`,
 				}}
 			/>
 		</div>
