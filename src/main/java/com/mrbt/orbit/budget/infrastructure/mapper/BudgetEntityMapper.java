@@ -2,7 +2,6 @@ package com.mrbt.orbit.budget.infrastructure.mapper;
 
 import java.math.BigDecimal;
 import java.time.ZoneOffset;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -11,9 +10,10 @@ import com.mrbt.orbit.budget.core.model.Budget;
 import com.mrbt.orbit.budget.core.model.BudgetItem;
 import com.mrbt.orbit.budget.infrastructure.entity.BudgetEntity;
 import com.mrbt.orbit.budget.infrastructure.entity.BudgetItemEntity;
+import com.mrbt.orbit.common.infrastructure.mapper.AbstractNullSafeMapper;
 
 @Component
-public class BudgetEntityMapper {
+public class BudgetEntityMapper extends AbstractNullSafeMapper<BudgetEntity, Budget> {
 
 	public Budget toDomain(BudgetEntity entity) {
 		if (entity == null)
@@ -46,12 +46,11 @@ public class BudgetEntityMapper {
 		entity.setStatus(domain.getStatus());
 
 		if (domain.getItems() != null) {
-			List<BudgetItemEntity> itemEntities = new ArrayList<>();
-			for (BudgetItem item : domain.getItems()) {
-				BudgetItemEntity itemEntity = itemToEntity(item);
-				itemEntity.setBudget(entity);
-				itemEntities.add(itemEntity);
-			}
+			List<BudgetItemEntity> itemEntities = domain.getItems().stream().map(item -> {
+				BudgetItemEntity ie = itemToEntity(item);
+				ie.setBudget(entity);
+				return ie;
+			}).toList();
 			entity.setItems(itemEntities);
 		}
 
@@ -82,12 +81,6 @@ public class BudgetEntityMapper {
 		entity.setSpentAmount(domain.getSpentAmount() != null ? domain.getSpentAmount() : BigDecimal.ZERO);
 		entity.setAlertThresholdPct(domain.getAlertThresholdPct());
 		return entity;
-	}
-
-	public List<Budget> toDomainList(List<BudgetEntity> entities) {
-		if (entities == null)
-			return null;
-		return entities.stream().map(this::toDomain).toList();
 	}
 
 }

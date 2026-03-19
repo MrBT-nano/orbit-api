@@ -2,15 +2,15 @@ package com.mrbt.orbit.budget.infrastructure.mapper;
 
 import java.math.BigDecimal;
 import java.time.ZoneOffset;
-import java.util.List;
 
 import org.springframework.stereotype.Component;
 
 import com.mrbt.orbit.budget.core.model.Goal;
 import com.mrbt.orbit.budget.infrastructure.entity.GoalEntity;
+import com.mrbt.orbit.common.infrastructure.mapper.AbstractNullSafeMapper;
 
 @Component
-public class GoalEntityMapper {
+public class GoalEntityMapper extends AbstractNullSafeMapper<GoalEntity, Goal> {
 
 	public Goal toDomain(GoalEntity entity) {
 		if (entity == null)
@@ -39,12 +39,6 @@ public class GoalEntityMapper {
 		entity.setLinkedAccountId(domain.getLinkedAccountId());
 		entity.setStatus(domain.getStatus());
 		return entity;
-	}
-
-	public List<Goal> toDomainList(List<GoalEntity> entities) {
-		if (entities == null)
-			return null;
-		return entities.stream().map(this::toDomain).toList();
 	}
 
 }

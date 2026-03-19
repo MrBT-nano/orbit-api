@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 import java.time.ZoneOffset;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class TransactionMapper {
@@ -77,6 +76,6 @@ public class TransactionMapper {
 	public List<TransactionResponse> toResponseList(List<Transaction> domains) {
 		if (domains == null)
 			return null;
-		return domains.stream().map(this::toResponse).collect(Collectors.toList());
+		return domains.stream().map(this::toResponse).toList();
 	}
 }

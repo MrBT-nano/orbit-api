@@ -9,6 +9,7 @@ import com.mrbt.orbit.budget.core.port.in.ContributeGoalUseCase;
 import com.mrbt.orbit.budget.core.port.in.CreateGoalUseCase;
 import com.mrbt.orbit.budget.core.port.in.GetGoalUseCase;
 import com.mrbt.orbit.common.api.ApiResponse;
+import com.mrbt.orbit.common.api.PaginationParams;
 import com.mrbt.orbit.common.core.model.PageResult;
 import com.mrbt.orbit.common.exception.ResourceNotFoundException;
 import io.swagger.v3.oas.annotations.Operation;
@@ -53,8 +54,8 @@ public class GoalController {
 	@Operation(summary = "Get goals for a user", description = "Returns paginated goals for a user")
 	public ResponseEntity<ApiResponse<PageResult<GoalResponse>>> getGoalsByUserId(@PathVariable UUID userId,
 			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "20") int size) {
-		int cappedSize = Math.min(size, 100);
-		PageResult<Goal> result = getGoalUseCase.getGoalsByUserId(userId, page, cappedSize);
+		PaginationParams pagination = PaginationParams.of(page, size);
+		PageResult<Goal> result = getGoalUseCase.getGoalsByUserId(userId, pagination.page(), pagination.size());
 		PageResult<GoalResponse> responses = new PageResult<>(dtoMapper.toResponseList(result.content()),
 				result.totalElements(), result.totalPages(), result.page(), result.size());
 		return ResponseEntity.ok(ApiResponse.success(responses));

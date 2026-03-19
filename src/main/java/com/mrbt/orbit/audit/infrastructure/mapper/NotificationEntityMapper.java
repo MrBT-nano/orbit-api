@@ -1,16 +1,15 @@
 package com.mrbt.orbit.audit.infrastructure.mapper;
 
 import java.time.ZoneOffset;
-import java.util.List;
 
 import org.springframework.stereotype.Component;
 
 import com.mrbt.orbit.audit.core.model.Notification;
 import com.mrbt.orbit.audit.infrastructure.entity.NotificationEntity;
-import com.mrbt.orbit.common.infrastructure.mapper.EntityMapper;
+import com.mrbt.orbit.common.infrastructure.mapper.AbstractNullSafeMapper;
 
 @Component
-public class NotificationEntityMapper implements EntityMapper<NotificationEntity, Notification> {
+public class NotificationEntityMapper extends AbstractNullSafeMapper<NotificationEntity, Notification> {
 
 	@Override
 	public Notification toDomain(NotificationEntity entity) {
@@ -42,22 +41,6 @@ public class NotificationEntityMapper implements EntityMapper<NotificationEntity
 		entity.setIsRead(domain.getIsRead());
 
 		return entity;
-	}
-
-	@Override
-	public List<Notification> toDomainList(List<NotificationEntity> entities) {
-		if (entities == null) {
-			return null;
-		}
-		return entities.stream().map(this::toDomain).toList();
-	}
-
-	@Override
-	public List<NotificationEntity> toEntityList(List<Notification> domains) {
-		if (domains == null) {
-			return null;
-		}
-		return domains.stream().map(this::toEntity).toList();
 	}
 
 }

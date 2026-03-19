@@ -12,7 +12,6 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
@@ -35,7 +34,7 @@ public class AccountRepositoryAdapter implements AccountRepositoryPort {
 
 	@Override
 	public List<Account> findByUserId(UUID userId) {
-		return springDataRepository.findByUserId(userId).stream().map(mapper::toDomain).collect(Collectors.toList());
+		return springDataRepository.findByUserId(userId).stream().map(mapper::toDomain).toList();
 	}
 
 	@Override

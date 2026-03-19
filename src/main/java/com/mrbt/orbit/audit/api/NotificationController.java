@@ -15,6 +15,7 @@ import com.mrbt.orbit.audit.api.response.NotificationResponse;
 import com.mrbt.orbit.audit.core.port.in.GetNotificationsUseCase;
 import com.mrbt.orbit.audit.core.port.in.MarkNotificationReadUseCase;
 import com.mrbt.orbit.common.api.ApiResponse;
+import com.mrbt.orbit.common.api.PaginationParams;
 import com.mrbt.orbit.common.core.model.PageResult;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -37,7 +38,8 @@ public class NotificationController {
 	@Operation(summary = "Get notifications for a user", description = "Returns paginated notifications for a user, newest first")
 	public ResponseEntity<ApiResponse<PageResult<NotificationResponse>>> getNotifications(@PathVariable UUID userId,
 			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "20") int size) {
-		var result = getNotificationsUseCase.getNotificationsByUserId(userId, page, size);
+		PaginationParams pagination = PaginationParams.of(page, size);
+		var result = getNotificationsUseCase.getNotificationsByUserId(userId, pagination.page(), pagination.size());
 
 		var responseResult = new PageResult<>(dtoMapper.toResponseList(result.content()), result.totalElements(),
 				result.totalPages(), result.page(), result.size());
