@@ -3,7 +3,7 @@
 import {
 	Bitcoin,
 	HelpCircle,
-	Map,
+	Map as MapIcon,
 	PieChart,
 	PlayCircle,
 	Sparkles,
@@ -85,7 +85,7 @@ export default function ProductSidebar({ locale, mobile }: { locale: string; mob
 						/>
 						<SidebarLink
 							href="#"
-							icon={Map}
+							icon={MapIcon}
 							label={t("roadmap")}
 							active={false}
 							disabled

@@ -21,6 +21,7 @@ export default function LanguageSwitcher({ locale }: { locale: string }) {
 
 	return (
 		<button
+			type="button"
 			onClick={handleSwitch}
 			className="flex items-center gap-1.5 bg-[#2A1F3D]/40 border border-white/8 rounded-lg px-3 py-1.5 text-sm text-[#9B8FB8] hover:text-[#F0EDF5] transition-colors"
 		>

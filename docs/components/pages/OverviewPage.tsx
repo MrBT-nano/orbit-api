@@ -1,6 +1,7 @@
 "use client";
 
 import { Globe, Landmark, ShieldCheck, Sparkles } from "lucide-react";
+import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import Breadcrumb from "@/components/Breadcrumb";
 import Callout from "@/components/Callout";
@@ -58,8 +59,7 @@ export default function OverviewPage() {
 
 			{/* Hero Card */}
 			<div className="bg-gradient-to-br from-[#5DFDCB]/8 to-[#B07AFF]/8 border border-[#5DFDCB]/12 rounded-2xl p-8 text-center">
-				{/* eslint-disable-next-line @next/next/no-img-element */}
-				<img
+				<Image
 					src={`${basePath}/orbit-logo.svg`}
 					alt="Orbit"
 					width={64}

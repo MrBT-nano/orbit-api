@@ -71,6 +71,7 @@ function SearchResultItem({
 }) {
 	return (
 		<button
+			type="button"
 			onMouseEnter={() => onHover(index)}
 			onClick={() => onSelect(result.href)}
 			className={cn(
@@ -164,6 +165,7 @@ export default function SearchDialog({ locale }: { locale: string }) {
 	return (
 		<>
 			<button
+				type="button"
 				onClick={() => setOpen(true)}
 				className="flex items-center gap-2 bg-[#2A1F3D]/40 border border-white/8 rounded-lg px-3 py-1.5 text-sm text-[#9B8FB8] hover:text-[#F0EDF5] transition-colors w-52 lg:w-64"
 			>

@@ -7,23 +7,25 @@ export function getEndpointsByTag(tag: string) {
 		summary: string;
 		description: string;
 		operationId: string;
-		requestBody?: any;
-		parameters?: any[];
-		responses?: any;
+		requestBody?: Record<string, unknown>;
+		parameters?: Record<string, unknown>[];
+		responses?: Record<string, unknown>;
 	}> = [];
 
 	for (const [path, methods] of Object.entries(spec.paths)) {
-		for (const [method, operation] of Object.entries(methods as Record<string, any>)) {
-			if (operation.tags?.includes(tag)) {
+		for (const [method, operation] of Object.entries(
+			methods as Record<string, Record<string, unknown>>,
+		)) {
+			if (Array.isArray(operation.tags) && operation.tags.includes(tag)) {
 				endpoints.push({
 					method: method.toUpperCase(),
 					path,
-					summary: operation.summary || "",
-					description: operation.description || "",
-					operationId: operation.operationId || "",
-					requestBody: operation.requestBody,
-					parameters: operation.parameters,
-					responses: operation.responses,
+					summary: (operation.summary as string) || "",
+					description: (operation.description as string) || "",
+					operationId: (operation.operationId as string) || "",
+					requestBody: operation.requestBody as Record<string, unknown> | undefined,
+					parameters: operation.parameters as Record<string, unknown>[] | undefined,
+					responses: operation.responses as Record<string, unknown> | undefined,
 				});
 			}
 		}
@@ -33,10 +35,10 @@ export function getEndpointsByTag(tag: string) {
 
 export function resolveSchema(ref: string) {
 	const parts = ref.replace("#/", "").split("/");
-	let current: any = spec;
+	let current: Record<string, unknown> = spec as Record<string, unknown>;
 	for (const part of parts) {
 		if (current == null) return undefined;
-		current = current[part];
+		current = current[part] as Record<string, unknown>;
 	}
 	return current;
 }

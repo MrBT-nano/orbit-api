@@ -146,7 +146,7 @@ cd orbit-api
 							<Wrapper
 								key={link.label}
 								href={link.href}
-								{...(extraProps as any)}
+								{...(extraProps as Record<string, string>)}
 								className="group flex items-center justify-between bg-[#2A1F3D]/30 border border-white/6 rounded-xl p-4 hover:border-[#5DFDCB]/30 transition-colors"
 							>
 								<div>

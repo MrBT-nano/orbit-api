@@ -31,6 +31,7 @@ export default function CodeBlock({ tabs, response }: { tabs: CodeTab[]; respons
 				<div className="flex">
 					{tabs.map((tab, i) => (
 						<button
+							type="button"
 							key={tab.label}
 							onClick={() => setActiveTab(i)}
 							className={cn(
@@ -45,6 +46,7 @@ export default function CodeBlock({ tabs, response }: { tabs: CodeTab[]; respons
 					))}
 				</div>
 				<button
+					type="button"
 					onClick={handleCopy}
 					className="px-3 py-2 text-[#9B8FB8] hover:text-[#F0EDF5] transition-colors"
 				>

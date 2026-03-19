@@ -20,6 +20,7 @@ export default function ApiEndpoint({
 	return (
 		<div className="bg-[#12101E] border border-white/6 rounded-2xl overflow-hidden">
 			<button
+				type="button"
 				onClick={() => setOpen(!open)}
 				className="w-full flex items-center gap-3 px-5 py-4 hover:bg-white/2 transition-colors"
 			>

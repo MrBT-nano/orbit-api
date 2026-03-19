@@ -5,7 +5,7 @@ export default function Breadcrumb({ items }: { items: Array<{ label: string; hr
 	return (
 		<nav className="flex items-center gap-1.5 text-sm text-[#9B8FB8]">
 			{items.map((item, i) => (
-				<span key={i} className="flex items-center gap-1.5">
+				<span key={item.label} className="flex items-center gap-1.5">
 					{i > 0 && <ChevronRight className="size-2.5 shrink-0" />}
 					{item.href && i < items.length - 1 ? (
 						<Link href={item.href} className="hover:text-[#F0EDF5] transition-colors">

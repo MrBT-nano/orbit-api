@@ -75,8 +75,7 @@ export default function GoalsAPIPage() {
 										name: "linkedAccountId",
 										type: "string (uuid)",
 										required: false,
-										description:
-											"Optional account ID whose balance is used as current progress",
+										description: "Optional account ID whose balance is used as current progress",
 									},
 								]}
 							/>

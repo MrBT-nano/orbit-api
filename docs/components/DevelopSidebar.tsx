@@ -3,7 +3,6 @@
 import {
 	ArrowLeftRight,
 	Bell,
-	CreditCard,
 	Database,
 	Hexagon,
 	Key,
@@ -186,8 +185,7 @@ export default function DevelopSidebar({ locale, mobile }: { locale: string; mob
 						{apiSections.map((section) => (
 							<CollapsibleSection key={section.basePath} {...section} pathname={pathname} />
 						))}
-
-						</div>
+					</div>
 				</div>
 
 				{/* Architecture */}
