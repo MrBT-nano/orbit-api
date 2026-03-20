@@ -7,7 +7,7 @@ import CodeBlock from "@/components/CodeBlock";
 import PageNav from "@/components/PageNav";
 import ParamTable from "@/components/ParamTable";
 
-export default function RecurringTransactionsAPIPage() {
+export default function SubscriptionsAPIPage() {
 	const locale = useLocale();
 	const t = useTranslations("pages");
 	const ta = useTranslations("api");
@@ -18,31 +18,29 @@ export default function RecurringTransactionsAPIPage() {
 				items={[
 					{ label: "Develop", href: `/${locale}/develop/getting-started` },
 					{ label: "API Reference" },
-					{ label: t("recurring_transactions_api_title").replace(" API", "").replace("API ", "") },
+					{ label: t("subscriptions_api_title").replace(" API", "").replace("API ", "") },
 				]}
 			/>
 
 			<div>
-				<h1 className="text-3xl font-bold text-[#F0EDF5] mb-2">
-					{t("recurring_transactions_api_title")}
-				</h1>
-				<p className="text-[#9B8FB8] leading-relaxed">{t("recurring_transactions_api_desc")}</p>
+				<h1 className="text-3xl font-bold text-[#F0EDF5] mb-2">{t("subscriptions_api_title")}</h1>
+				<p className="text-[#9B8FB8] leading-relaxed">{t("subscriptions_api_desc")}</p>
 			</div>
 
-			{/* POST /api/v1/recurring-transactions */}
+			{/* POST /api/v1/subscriptions */}
 			<div className="space-y-4">
-				<h2 id="create-recurring" className="text-xl font-semibold text-[#F0EDF5]">
-					{t("create_recurring")}
+				<h2 id="create-subscription" className="text-xl font-semibold text-[#F0EDF5]">
+					{t("create_subscription")}
 				</h2>
 				<ApiEndpoint
 					method="POST"
-					path="/api/v1/recurring-transactions"
-					description="Creates a new recurring transaction rule that automatically generates transactions at the specified frequency"
+					path="/api/v1/subscriptions"
+					description="Creates a new subscription to track recurring payments with optional billing reminders"
 				>
 					<div className="space-y-6">
 						<div>
 							<h3
-								id="create-recurring-body"
+								id="create-subscription-body"
 								className="text-sm font-semibold text-[#9B8FB8] uppercase tracking-wider mb-3"
 							>
 								{ta("request_body")}
@@ -53,25 +51,37 @@ export default function RecurringTransactionsAPIPage() {
 										name: "userId",
 										type: "string (uuid)",
 										required: true,
-										description: "The UUID of the user who owns the rule",
+										description: "The UUID of the user who owns this subscription",
 									},
 									{
 										name: "accountId",
 										type: "string (uuid)",
 										required: true,
-										description: "The account to create transactions against",
+										description: "The account to charge for this subscription",
 									},
 									{
 										name: "categoryId",
 										type: "string (uuid)",
 										required: false,
-										description: "Optional category to assign to generated transactions",
+										description: "Optional category to classify the subscription expense",
+									},
+									{
+										name: "paymentMethodId",
+										type: "string (uuid)",
+										required: false,
+										description: "Optional linked payment method for this subscription",
+									},
+									{
+										name: "name",
+										type: "string",
+										required: true,
+										description: "Name of the subscription (e.g. Netflix, Spotify)",
 									},
 									{
 										name: "amount",
 										type: "number",
 										required: true,
-										description: "Transaction amount (positive for income, negative for expense)",
+										description: "Billing amount per cycle",
 									},
 									{
 										name: "currencyCode",
@@ -80,30 +90,29 @@ export default function RecurringTransactionsAPIPage() {
 										description: "ISO 4217 currency code (e.g. USD, THB)",
 									},
 									{
-										name: "description",
-										type: "string",
-										required: false,
-										description: "Optional description for generated transactions",
-									},
-									{
-										name: "frequency",
+										name: "billingCycle",
 										type: "string",
 										required: true,
-										description:
-											"Recurrence frequency: DAILY, WEEKLY, BIWEEKLY, MONTHLY, QUARTERLY, or YEARLY",
+										description: "Billing frequency: WEEKLY, MONTHLY, QUARTERLY, or YEARLY",
 									},
 									{
-										name: "startDate",
+										name: "nextBillingDate",
 										type: "string (date)",
 										required: true,
-										description: "The date when the first transaction should be created (ISO 8601)",
+										description: "The next billing date (ISO 8601)",
 									},
 									{
-										name: "autoConfirm",
-										type: "boolean",
+										name: "reminderDaysBefore",
+										type: "integer",
 										required: false,
 										description:
-											"If true, generated transactions are auto-confirmed. Default: false",
+											"Days before billing to send a reminder notification. Default: null (no reminder)",
+									},
+									{
+										name: "trialEndDate",
+										type: "string (date)",
+										required: false,
+										description: "End date of a free trial period, if applicable",
 									},
 								]}
 							/>
@@ -111,7 +120,7 @@ export default function RecurringTransactionsAPIPage() {
 
 						<div>
 							<h3
-								id="create-recurring-example"
+								id="create-subscription-example"
 								className="text-sm font-semibold text-[#9B8FB8] uppercase tracking-wider mb-3"
 							>
 								{ta("example_request")}
@@ -120,35 +129,39 @@ export default function RecurringTransactionsAPIPage() {
 								tabs={[
 									{
 										label: "cURL",
-										code: `curl -X POST http://localhost:8080/api/v1/recurring-transactions \\
+										code: `curl -X POST http://localhost:8080/api/v1/subscriptions \\
   -H "Content-Type: application/json" \\
   -d '{
     "userId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
     "accountId": "acc-chk-0001-aaaa-bbbbbbbbbbbb",
-    "categoryId": "cat-rent-0002",
-    "amount": -1500.00,
+    "categoryId": "cat-ent-0003",
+    "paymentMethodId": "pm-a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "name": "Netflix Premium",
+    "amount": 22.99,
     "currencyCode": "USD",
-    "description": "Monthly rent payment",
-    "frequency": "MONTHLY",
-    "startDate": "2026-04-01",
-    "autoConfirm": true
+    "billingCycle": "MONTHLY",
+    "nextBillingDate": "2026-04-15",
+    "reminderDaysBefore": 3,
+    "trialEndDate": "2026-04-01"
   }'`,
 									},
 									{
 										label: "JavaScript",
-										code: `const response = await fetch("http://localhost:8080/api/v1/recurring-transactions", {
+										code: `const response = await fetch("http://localhost:8080/api/v1/subscriptions", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({
     userId: "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
     accountId: "acc-chk-0001-aaaa-bbbbbbbbbbbb",
-    categoryId: "cat-rent-0002",
-    amount: -1500.00,
+    categoryId: "cat-ent-0003",
+    paymentMethodId: "pm-a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    name: "Netflix Premium",
+    amount: 22.99,
     currencyCode: "USD",
-    description: "Monthly rent payment",
-    frequency: "MONTHLY",
-    startDate: "2026-04-01",
-    autoConfirm: true,
+    billingCycle: "MONTHLY",
+    nextBillingDate: "2026-04-15",
+    reminderDaysBefore: 3,
+    trialEndDate: "2026-04-01",
   }),
 });
 
@@ -160,17 +173,19 @@ console.log(data);`,
 										code: `import requests
 
 response = requests.post(
-    "http://localhost:8080/api/v1/recurring-transactions",
+    "http://localhost:8080/api/v1/subscriptions",
     json={
         "userId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
         "accountId": "acc-chk-0001-aaaa-bbbbbbbbbbbb",
-        "categoryId": "cat-rent-0002",
-        "amount": -1500.00,
+        "categoryId": "cat-ent-0003",
+        "paymentMethodId": "pm-a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+        "name": "Netflix Premium",
+        "amount": 22.99,
         "currencyCode": "USD",
-        "description": "Monthly rent payment",
-        "frequency": "MONTHLY",
-        "startDate": "2026-04-01",
-        "autoConfirm": True,
+        "billingCycle": "MONTHLY",
+        "nextBillingDate": "2026-04-15",
+        "reminderDaysBefore": 3,
+        "trialEndDate": "2026-04-01",
     },
 )
 
@@ -182,7 +197,7 @@ print(response.json())`,
 
 						<div>
 							<h3
-								id="create-recurring-response"
+								id="create-subscription-response"
 								className="text-sm font-semibold text-[#9B8FB8] uppercase tracking-wider mb-3"
 							>
 								{ta("response")}
@@ -194,23 +209,25 @@ print(response.json())`,
 										label: "JSON",
 										code: `{
   "success": true,
-  "message": "Recurring transaction rule created successfully",
+  "message": "Subscription created",
   "data": {
-    "id": "rt-a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "id": "sub-a1b2c3d4-e5f6-7890-abcd-ef1234567890",
     "userId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
     "accountId": "acc-chk-0001-aaaa-bbbbbbbbbbbb",
-    "categoryId": "cat-rent-0002",
-    "amount": -1500.00,
+    "categoryId": "cat-ent-0003",
+    "paymentMethodId": "pm-a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "name": "Netflix Premium",
+    "amount": 22.99,
     "currencyCode": "USD",
-    "description": "Monthly rent payment",
-    "frequency": "MONTHLY",
-    "startDate": "2026-04-01",
-    "nextExecutionDate": "2026-04-01",
-    "autoConfirm": true,
-    "status": "ACTIVE",
-    "createdAt": "2026-03-19T10:00:00Z"
+    "billingCycle": "MONTHLY",
+    "nextBillingDate": "2026-04-15",
+    "reminderDaysBefore": 3,
+    "status": "TRIAL",
+    "trialEndDate": "2026-04-01",
+    "createdAt": "2026-03-20T10:00:00Z",
+    "updatedAt": "2026-03-20T10:00:00Z"
   },
-  "timestamp": "2026-03-19T10:00:00Z"
+  "timestamp": "2026-03-20T10:00:00Z"
 }`,
 									},
 								]}
@@ -220,20 +237,20 @@ print(response.json())`,
 				</ApiEndpoint>
 			</div>
 
-			{/* GET /api/v1/recurring-transactions/{id} */}
+			{/* GET /api/v1/subscriptions/{id} */}
 			<div className="space-y-4">
-				<h2 id="get-recurring-by-id" className="text-xl font-semibold text-[#F0EDF5]">
-					{t("get_recurring_by_id")}
+				<h2 id="get-subscription-by-id" className="text-xl font-semibold text-[#F0EDF5]">
+					{t("get_subscription_by_id")}
 				</h2>
 				<ApiEndpoint
 					method="GET"
-					path="/api/v1/recurring-transactions/{id}"
-					description="Returns a single recurring transaction rule by its ID"
+					path="/api/v1/subscriptions/{id}"
+					description="Returns a single subscription by its ID"
 				>
 					<div className="space-y-6">
 						<div>
 							<h3
-								id="get-recurring-by-id-params"
+								id="get-subscription-by-id-params"
 								className="text-sm font-semibold text-[#9B8FB8] uppercase tracking-wider mb-3"
 							>
 								{ta("path_params")}
@@ -244,7 +261,7 @@ print(response.json())`,
 										name: "id",
 										type: "string (uuid)",
 										required: true,
-										description: "The UUID of the recurring transaction rule to retrieve",
+										description: "The UUID of the subscription to retrieve",
 									},
 								]}
 							/>
@@ -252,7 +269,7 @@ print(response.json())`,
 
 						<div>
 							<h3
-								id="get-recurring-by-id-example"
+								id="get-subscription-by-id-example"
 								className="text-sm font-semibold text-[#9B8FB8] uppercase tracking-wider mb-3"
 							>
 								{ta("example_request")}
@@ -261,13 +278,13 @@ print(response.json())`,
 								tabs={[
 									{
 										label: "cURL",
-										code: `curl http://localhost:8080/api/v1/recurring-transactions/rt-a1b2c3d4-e5f6-7890-abcd-ef1234567890`,
+										code: `curl http://localhost:8080/api/v1/subscriptions/sub-a1b2c3d4-e5f6-7890-abcd-ef1234567890`,
 									},
 									{
 										label: "JavaScript",
-										code: `const id = "rt-a1b2c3d4-e5f6-7890-abcd-ef1234567890";
+										code: `const id = "sub-a1b2c3d4-e5f6-7890-abcd-ef1234567890";
 const response = await fetch(
-  \`http://localhost:8080/api/v1/recurring-transactions/\${id}\`
+  \`http://localhost:8080/api/v1/subscriptions/\${id}\`
 );
 
 const data = await response.json();
@@ -278,7 +295,7 @@ console.log(data);`,
 										code: `import requests
 
 response = requests.get(
-    "http://localhost:8080/api/v1/recurring-transactions/rt-a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    "http://localhost:8080/api/v1/subscriptions/sub-a1b2c3d4-e5f6-7890-abcd-ef1234567890"
 )
 
 print(response.json())`,
@@ -289,7 +306,7 @@ print(response.json())`,
 
 						<div>
 							<h3
-								id="get-recurring-by-id-response"
+								id="get-subscription-by-id-response"
 								className="text-sm font-semibold text-[#9B8FB8] uppercase tracking-wider mb-3"
 							>
 								{ta("response")}
@@ -303,21 +320,23 @@ print(response.json())`,
   "success": true,
   "message": null,
   "data": {
-    "id": "rt-a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "id": "sub-a1b2c3d4-e5f6-7890-abcd-ef1234567890",
     "userId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
     "accountId": "acc-chk-0001-aaaa-bbbbbbbbbbbb",
-    "categoryId": "cat-rent-0002",
-    "amount": -1500.00,
+    "categoryId": "cat-ent-0003",
+    "paymentMethodId": "pm-a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "name": "Netflix Premium",
+    "amount": 22.99,
     "currencyCode": "USD",
-    "description": "Monthly rent payment",
-    "frequency": "MONTHLY",
-    "startDate": "2026-04-01",
-    "nextExecutionDate": "2026-05-01",
-    "autoConfirm": true,
+    "billingCycle": "MONTHLY",
+    "nextBillingDate": "2026-04-15",
+    "reminderDaysBefore": 3,
     "status": "ACTIVE",
-    "createdAt": "2026-03-19T10:00:00Z"
+    "trialEndDate": "2026-04-01",
+    "createdAt": "2026-03-20T10:00:00Z",
+    "updatedAt": "2026-03-20T10:00:00Z"
   },
-  "timestamp": "2026-03-19T10:05:00Z"
+  "timestamp": "2026-03-20T10:05:00Z"
 }`,
 									},
 								]}
@@ -327,20 +346,20 @@ print(response.json())`,
 				</ApiEndpoint>
 			</div>
 
-			{/* GET /api/v1/recurring-transactions/user/{userId} */}
+			{/* GET /api/v1/subscriptions/user/{userId} */}
 			<div className="space-y-4">
-				<h2 id="get-recurring-by-user" className="text-xl font-semibold text-[#F0EDF5]">
-					{t("get_recurring_by_user")}
+				<h2 id="get-subscriptions-by-user" className="text-xl font-semibold text-[#F0EDF5]">
+					{t("get_subscriptions_by_user")}
 				</h2>
 				<ApiEndpoint
 					method="GET"
-					path="/api/v1/recurring-transactions/user/{userId}"
-					description="Returns paginated recurring transaction rules for a user"
+					path="/api/v1/subscriptions/user/{userId}"
+					description="Returns paginated subscriptions for a user"
 				>
 					<div className="space-y-6">
 						<div>
 							<h3
-								id="get-recurring-by-user-params"
+								id="get-subscriptions-by-user-params"
 								className="text-sm font-semibold text-[#9B8FB8] uppercase tracking-wider mb-3"
 							>
 								{ta("path_params")}
@@ -351,7 +370,7 @@ print(response.json())`,
 										name: "userId",
 										type: "string (uuid)",
 										required: true,
-										description: "The UUID of the user whose rules to retrieve",
+										description: "The UUID of the user whose subscriptions to retrieve",
 									},
 								]}
 							/>
@@ -359,7 +378,7 @@ print(response.json())`,
 
 						<div>
 							<h3
-								id="get-recurring-by-user-query"
+								id="get-subscriptions-by-user-query"
 								className="text-sm font-semibold text-[#9B8FB8] uppercase tracking-wider mb-3"
 							>
 								{ta("query_params")}
@@ -384,7 +403,7 @@ print(response.json())`,
 
 						<div>
 							<h3
-								id="get-recurring-by-user-example"
+								id="get-subscriptions-by-user-example"
 								className="text-sm font-semibold text-[#9B8FB8] uppercase tracking-wider mb-3"
 							>
 								{ta("example_request")}
@@ -393,13 +412,13 @@ print(response.json())`,
 								tabs={[
 									{
 										label: "cURL",
-										code: `curl "http://localhost:8080/api/v1/recurring-transactions/user/a1b2c3d4-e5f6-7890-abcd-ef1234567890?page=0&size=20"`,
+										code: `curl "http://localhost:8080/api/v1/subscriptions/user/a1b2c3d4-e5f6-7890-abcd-ef1234567890?page=0&size=20"`,
 									},
 									{
 										label: "JavaScript",
 										code: `const userId = "a1b2c3d4-e5f6-7890-abcd-ef1234567890";
 const response = await fetch(
-  \`http://localhost:8080/api/v1/recurring-transactions/user/\${userId}?page=0&size=20\`
+  \`http://localhost:8080/api/v1/subscriptions/user/\${userId}?page=0&size=20\`
 );
 
 const data = await response.json();
@@ -410,7 +429,7 @@ console.log(data);`,
 										code: `import requests
 
 response = requests.get(
-    "http://localhost:8080/api/v1/recurring-transactions/user/a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "http://localhost:8080/api/v1/subscriptions/user/a1b2c3d4-e5f6-7890-abcd-ef1234567890",
     params={"page": 0, "size": 20},
 )
 
@@ -422,7 +441,7 @@ print(response.json())`,
 
 						<div>
 							<h3
-								id="get-recurring-by-user-response"
+								id="get-subscriptions-by-user-response"
 								className="text-sm font-semibold text-[#9B8FB8] uppercase tracking-wider mb-3"
 							>
 								{ta("response")}
@@ -438,16 +457,16 @@ print(response.json())`,
   "data": {
     "content": [
       {
-        "id": "rt-a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+        "id": "sub-a1b2c3d4-e5f6-7890-abcd-ef1234567890",
         "accountId": "acc-chk-0001-aaaa-bbbbbbbbbbbb",
-        "amount": -1500.00,
+        "name": "Netflix Premium",
+        "amount": 22.99,
         "currencyCode": "USD",
-        "description": "Monthly rent payment",
-        "frequency": "MONTHLY",
-        "nextExecutionDate": "2026-05-01",
-        "autoConfirm": true,
+        "billingCycle": "MONTHLY",
+        "nextBillingDate": "2026-04-15",
+        "reminderDaysBefore": 3,
         "status": "ACTIVE",
-        "createdAt": "2026-03-19T10:00:00Z"
+        "createdAt": "2026-03-20T10:00:00Z"
       }
     ],
     "totalElements": 1,
@@ -455,7 +474,7 @@ print(response.json())`,
     "page": 0,
     "size": 20
   },
-  "timestamp": "2026-03-19T10:10:00Z"
+  "timestamp": "2026-03-20T10:10:00Z"
 }`,
 									},
 								]}
@@ -465,20 +484,20 @@ print(response.json())`,
 				</ApiEndpoint>
 			</div>
 
-			{/* PATCH /api/v1/recurring-transactions/{id} */}
+			{/* PATCH /api/v1/subscriptions/{id} */}
 			<div className="space-y-4">
-				<h2 id="update-recurring" className="text-xl font-semibold text-[#F0EDF5]">
-					{t("update_recurring")}
+				<h2 id="update-subscription" className="text-xl font-semibold text-[#F0EDF5]">
+					{t("update_subscription")}
 				</h2>
 				<ApiEndpoint
 					method="PATCH"
-					path="/api/v1/recurring-transactions/{id}"
-					description="Updates an existing recurring transaction rule's description, amount, or category"
+					path="/api/v1/subscriptions/{id}"
+					description="Updates an existing subscription's name, amount, or reminder settings"
 				>
 					<div className="space-y-6">
 						<div>
 							<h3
-								id="update-recurring-params"
+								id="update-subscription-params"
 								className="text-sm font-semibold text-[#9B8FB8] uppercase tracking-wider mb-3"
 							>
 								{ta("path_params")}
@@ -489,7 +508,7 @@ print(response.json())`,
 										name: "id",
 										type: "string (uuid)",
 										required: true,
-										description: "The UUID of the recurring transaction rule to update",
+										description: "The UUID of the subscription to update",
 									},
 								]}
 							/>
@@ -497,7 +516,7 @@ print(response.json())`,
 
 						<div>
 							<h3
-								id="update-recurring-body"
+								id="update-subscription-body"
 								className="text-sm font-semibold text-[#9B8FB8] uppercase tracking-wider mb-3"
 							>
 								{ta("request_body")}
@@ -505,22 +524,22 @@ print(response.json())`,
 							<ParamTable
 								params={[
 									{
-										name: "description",
+										name: "name",
 										type: "string",
 										required: false,
-										description: "Updated description for generated transactions",
+										description: "Updated subscription name",
 									},
 									{
 										name: "amount",
 										type: "number",
 										required: false,
-										description: "Updated transaction amount",
+										description: "Updated billing amount",
 									},
 									{
-										name: "categoryId",
-										type: "string (uuid)",
+										name: "reminderDaysBefore",
+										type: "integer",
 										required: false,
-										description: "Updated category ID",
+										description: "Updated number of days before billing to send a reminder",
 									},
 								]}
 							/>
@@ -528,7 +547,7 @@ print(response.json())`,
 
 						<div>
 							<h3
-								id="update-recurring-example"
+								id="update-subscription-example"
 								className="text-sm font-semibold text-[#9B8FB8] uppercase tracking-wider mb-3"
 							>
 								{ta("example_request")}
@@ -537,24 +556,26 @@ print(response.json())`,
 								tabs={[
 									{
 										label: "cURL",
-										code: `curl -X PATCH http://localhost:8080/api/v1/recurring-transactions/rt-a1b2c3d4-e5f6-7890-abcd-ef1234567890 \\
+										code: `curl -X PATCH http://localhost:8080/api/v1/subscriptions/sub-a1b2c3d4-e5f6-7890-abcd-ef1234567890 \\
   -H "Content-Type: application/json" \\
   -d '{
-    "amount": -1600.00,
-    "description": "Monthly rent payment (increased)"
+    "name": "Netflix Standard",
+    "amount": 15.49,
+    "reminderDaysBefore": 5
   }'`,
 									},
 									{
 										label: "JavaScript",
-										code: `const id = "rt-a1b2c3d4-e5f6-7890-abcd-ef1234567890";
+										code: `const id = "sub-a1b2c3d4-e5f6-7890-abcd-ef1234567890";
 const response = await fetch(
-  \`http://localhost:8080/api/v1/recurring-transactions/\${id}\`,
+  \`http://localhost:8080/api/v1/subscriptions/\${id}\`,
   {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      amount: -1600.00,
-      description: "Monthly rent payment (increased)",
+      name: "Netflix Standard",
+      amount: 15.49,
+      reminderDaysBefore: 5,
     }),
   }
 );
@@ -567,10 +588,11 @@ console.log(data);`,
 										code: `import requests
 
 response = requests.patch(
-    "http://localhost:8080/api/v1/recurring-transactions/rt-a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "http://localhost:8080/api/v1/subscriptions/sub-a1b2c3d4-e5f6-7890-abcd-ef1234567890",
     json={
-        "amount": -1600.00,
-        "description": "Monthly rent payment (increased)",
+        "name": "Netflix Standard",
+        "amount": 15.49,
+        "reminderDaysBefore": 5,
     },
 )
 
@@ -582,7 +604,7 @@ print(response.json())`,
 
 						<div>
 							<h3
-								id="update-recurring-response"
+								id="update-subscription-response"
 								className="text-sm font-semibold text-[#9B8FB8] uppercase tracking-wider mb-3"
 							>
 								{ta("response")}
@@ -594,23 +616,25 @@ print(response.json())`,
 										label: "JSON",
 										code: `{
   "success": true,
-  "message": "Recurring transaction rule updated successfully",
+  "message": "Subscription updated",
   "data": {
-    "id": "rt-a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "id": "sub-a1b2c3d4-e5f6-7890-abcd-ef1234567890",
     "userId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
     "accountId": "acc-chk-0001-aaaa-bbbbbbbbbbbb",
-    "categoryId": "cat-rent-0002",
-    "amount": -1600.00,
+    "categoryId": "cat-ent-0003",
+    "paymentMethodId": "pm-a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "name": "Netflix Standard",
+    "amount": 15.49,
     "currencyCode": "USD",
-    "description": "Monthly rent payment (increased)",
-    "frequency": "MONTHLY",
-    "startDate": "2026-04-01",
-    "nextExecutionDate": "2026-05-01",
-    "autoConfirm": true,
+    "billingCycle": "MONTHLY",
+    "nextBillingDate": "2026-04-15",
+    "reminderDaysBefore": 5,
     "status": "ACTIVE",
-    "createdAt": "2026-03-19T10:00:00Z"
+    "trialEndDate": "2026-04-01",
+    "createdAt": "2026-03-20T10:00:00Z",
+    "updatedAt": "2026-03-20T11:00:00Z"
   },
-  "timestamp": "2026-03-19T11:00:00Z"
+  "timestamp": "2026-03-20T11:00:00Z"
 }`,
 									},
 								]}
@@ -620,20 +644,20 @@ print(response.json())`,
 				</ApiEndpoint>
 			</div>
 
-			{/* PATCH /api/v1/recurring-transactions/{id}/pause */}
+			{/* PATCH /api/v1/subscriptions/{id}/pause */}
 			<div className="space-y-4">
-				<h2 id="toggle-pause-recurring" className="text-xl font-semibold text-[#F0EDF5]">
-					{t("toggle_pause_recurring")}
+				<h2 id="toggle-pause-subscription" className="text-xl font-semibold text-[#F0EDF5]">
+					{t("toggle_pause_subscription")}
 				</h2>
 				<ApiEndpoint
 					method="PATCH"
-					path="/api/v1/recurring-transactions/{id}/pause"
-					description="Toggles a recurring transaction rule between ACTIVE and PAUSED status"
+					path="/api/v1/subscriptions/{id}/pause"
+					description="Toggles a subscription between ACTIVE and PAUSED status"
 				>
 					<div className="space-y-6">
 						<div>
 							<h3
-								id="toggle-pause-recurring-params"
+								id="toggle-pause-subscription-params"
 								className="text-sm font-semibold text-[#9B8FB8] uppercase tracking-wider mb-3"
 							>
 								{ta("path_params")}
@@ -644,7 +668,7 @@ print(response.json())`,
 										name: "id",
 										type: "string (uuid)",
 										required: true,
-										description: "The UUID of the recurring transaction rule to pause or resume",
+										description: "The UUID of the subscription to pause or resume",
 									},
 								]}
 							/>
@@ -652,7 +676,7 @@ print(response.json())`,
 
 						<div>
 							<h3
-								id="toggle-pause-recurring-example"
+								id="toggle-pause-subscription-example"
 								className="text-sm font-semibold text-[#9B8FB8] uppercase tracking-wider mb-3"
 							>
 								{ta("example_request")}
@@ -661,13 +685,13 @@ print(response.json())`,
 								tabs={[
 									{
 										label: "cURL",
-										code: `curl -X PATCH http://localhost:8080/api/v1/recurring-transactions/rt-a1b2c3d4-e5f6-7890-abcd-ef1234567890/pause`,
+										code: `curl -X PATCH http://localhost:8080/api/v1/subscriptions/sub-a1b2c3d4-e5f6-7890-abcd-ef1234567890/pause`,
 									},
 									{
 										label: "JavaScript",
-										code: `const id = "rt-a1b2c3d4-e5f6-7890-abcd-ef1234567890";
+										code: `const id = "sub-a1b2c3d4-e5f6-7890-abcd-ef1234567890";
 const response = await fetch(
-  \`http://localhost:8080/api/v1/recurring-transactions/\${id}/pause\`,
+  \`http://localhost:8080/api/v1/subscriptions/\${id}/pause\`,
   { method: "PATCH" }
 );
 
@@ -679,7 +703,7 @@ console.log(data);`,
 										code: `import requests
 
 response = requests.patch(
-    "http://localhost:8080/api/v1/recurring-transactions/rt-a1b2c3d4-e5f6-7890-abcd-ef1234567890/pause"
+    "http://localhost:8080/api/v1/subscriptions/sub-a1b2c3d4-e5f6-7890-abcd-ef1234567890/pause"
 )
 
 print(response.json())`,
@@ -690,7 +714,7 @@ print(response.json())`,
 
 						<div>
 							<h3
-								id="toggle-pause-recurring-response"
+								id="toggle-pause-subscription-response"
 								className="text-sm font-semibold text-[#9B8FB8] uppercase tracking-wider mb-3"
 							>
 								{ta("response")}
@@ -702,23 +726,25 @@ print(response.json())`,
 										label: "JSON",
 										code: `{
   "success": true,
-  "message": "Recurring transaction rule paused successfully",
+  "message": "Subscription pause toggled",
   "data": {
-    "id": "rt-a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "id": "sub-a1b2c3d4-e5f6-7890-abcd-ef1234567890",
     "userId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
     "accountId": "acc-chk-0001-aaaa-bbbbbbbbbbbb",
-    "categoryId": "cat-rent-0002",
-    "amount": -1600.00,
+    "categoryId": "cat-ent-0003",
+    "paymentMethodId": "pm-a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "name": "Netflix Standard",
+    "amount": 15.49,
     "currencyCode": "USD",
-    "description": "Monthly rent payment (increased)",
-    "frequency": "MONTHLY",
-    "startDate": "2026-04-01",
-    "nextExecutionDate": "2026-05-01",
-    "autoConfirm": true,
+    "billingCycle": "MONTHLY",
+    "nextBillingDate": "2026-04-15",
+    "reminderDaysBefore": 5,
     "status": "PAUSED",
-    "createdAt": "2026-03-19T10:00:00Z"
+    "trialEndDate": "2026-04-01",
+    "createdAt": "2026-03-20T10:00:00Z",
+    "updatedAt": "2026-03-20T11:15:00Z"
   },
-  "timestamp": "2026-03-19T11:15:00Z"
+  "timestamp": "2026-03-20T11:15:00Z"
 }`,
 									},
 								]}
@@ -728,20 +754,20 @@ print(response.json())`,
 				</ApiEndpoint>
 			</div>
 
-			{/* DELETE /api/v1/recurring-transactions/{id} */}
+			{/* DELETE /api/v1/subscriptions/{id} */}
 			<div className="space-y-4">
-				<h2 id="cancel-recurring" className="text-xl font-semibold text-[#F0EDF5]">
-					{t("cancel_recurring")}
+				<h2 id="delete-subscription" className="text-xl font-semibold text-[#F0EDF5]">
+					{t("delete_subscription")}
 				</h2>
 				<ApiEndpoint
 					method="DELETE"
-					path="/api/v1/recurring-transactions/{id}"
-					description="Cancels a recurring transaction rule. No further transactions will be generated."
+					path="/api/v1/subscriptions/{id}"
+					description="Cancels a subscription via soft delete, changing its status to CANCELLED"
 				>
 					<div className="space-y-6">
 						<div>
 							<h3
-								id="cancel-recurring-params"
+								id="delete-subscription-params"
 								className="text-sm font-semibold text-[#9B8FB8] uppercase tracking-wider mb-3"
 							>
 								{ta("path_params")}
@@ -752,7 +778,7 @@ print(response.json())`,
 										name: "id",
 										type: "string (uuid)",
 										required: true,
-										description: "The UUID of the recurring transaction rule to cancel",
+										description: "The UUID of the subscription to cancel",
 									},
 								]}
 							/>
@@ -760,7 +786,7 @@ print(response.json())`,
 
 						<div>
 							<h3
-								id="cancel-recurring-example"
+								id="delete-subscription-example"
 								className="text-sm font-semibold text-[#9B8FB8] uppercase tracking-wider mb-3"
 							>
 								{ta("example_request")}
@@ -769,13 +795,13 @@ print(response.json())`,
 								tabs={[
 									{
 										label: "cURL",
-										code: `curl -X DELETE http://localhost:8080/api/v1/recurring-transactions/rt-a1b2c3d4-e5f6-7890-abcd-ef1234567890`,
+										code: `curl -X DELETE http://localhost:8080/api/v1/subscriptions/sub-a1b2c3d4-e5f6-7890-abcd-ef1234567890`,
 									},
 									{
 										label: "JavaScript",
-										code: `const id = "rt-a1b2c3d4-e5f6-7890-abcd-ef1234567890";
+										code: `const id = "sub-a1b2c3d4-e5f6-7890-abcd-ef1234567890";
 const response = await fetch(
-  \`http://localhost:8080/api/v1/recurring-transactions/\${id}\`,
+  \`http://localhost:8080/api/v1/subscriptions/\${id}\`,
   { method: "DELETE" }
 );
 
@@ -787,7 +813,7 @@ console.log(data);`,
 										code: `import requests
 
 response = requests.delete(
-    "http://localhost:8080/api/v1/recurring-transactions/rt-a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    "http://localhost:8080/api/v1/subscriptions/sub-a1b2c3d4-e5f6-7890-abcd-ef1234567890"
 )
 
 print(response.json())`,
@@ -798,7 +824,7 @@ print(response.json())`,
 
 						<div>
 							<h3
-								id="cancel-recurring-response"
+								id="delete-subscription-response"
 								className="text-sm font-semibold text-[#9B8FB8] uppercase tracking-wider mb-3"
 							>
 								{ta("response")}
@@ -810,9 +836,9 @@ print(response.json())`,
 										label: "JSON",
 										code: `{
   "success": true,
-  "message": "Recurring transaction rule cancelled successfully",
+  "message": "Subscription cancelled",
   "data": null,
-  "timestamp": "2026-03-19T11:30:00Z"
+  "timestamp": "2026-03-20T11:30:00Z"
 }`,
 									},
 								]}
@@ -824,12 +850,12 @@ print(response.json())`,
 
 			<PageNav
 				prev={{
-					label: "Goals API",
-					href: `/${locale}/develop/api/goals`,
-				}}
-				next={{
 					label: "Payment Methods API",
 					href: `/${locale}/develop/api/payment-methods`,
+				}}
+				next={{
+					label: "Architecture",
+					href: `/${locale}/develop/architecture`,
 				}}
 			/>
 		</div>

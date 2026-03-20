@@ -160,8 +160,8 @@ export default function ArchitecturePage() {
 
 			<PageNav
 				prev={{
-					label: "Recurring Transactions API",
-					href: `/${locale}/develop/api/recurring-transactions`,
+					label: "Subscriptions API",
+					href: `/${locale}/develop/api/subscriptions`,
 				}}
 				next={{
 					label: "Quick Start",
