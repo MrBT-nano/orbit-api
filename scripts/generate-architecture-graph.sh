@@ -111,3 +111,43 @@ for module in "${MODULES[@]}"; do
   echo "$row |" >> "$OUTPUT"
 done
 echo "" >> "$OUTPUT"
+
+# --- Section 4: Key Classes Per Module ---
+echo "## 4. Key Classes Per Module" >> "$OUTPUT"
+echo "" >> "$OUTPUT"
+
+for module in "${MODULES[@]}"; do
+  echo "### $module" >> "$OUTPUT"
+  echo "" >> "$OUTPUT"
+
+  # Controllers
+  controllers=$(grep -rl "@RestController" "$SRC_DIR/$module" 2>/dev/null \
+    | xargs -I{} basename {} .java 2>/dev/null | sort)
+  if [ -n "$controllers" ]; then
+    echo "**Controllers:** $(echo $controllers | sed 's/ /, /g')" >> "$OUTPUT"
+  fi
+
+  # Services
+  services=$(grep -rl "@Service" "$SRC_DIR/$module" 2>/dev/null \
+    | xargs -I{} basename {} .java 2>/dev/null | sort)
+  if [ -n "$services" ]; then
+    echo "**Services:** $(echo $services | sed 's/ /, /g')" >> "$OUTPUT"
+  fi
+
+  # Entities
+  entities=$(grep -rl "@Entity" "$SRC_DIR/$module" 2>/dev/null \
+    | xargs -I{} basename {} .java 2>/dev/null | sort)
+  if [ -n "$entities" ]; then
+    echo "**Entities:** $(echo $entities | sed 's/ /, /g')" >> "$OUTPUT"
+    TOTAL_ENTITIES=$((TOTAL_ENTITIES + $(echo "$entities" | wc -w)))
+  fi
+
+  # Repositories
+  repos=$(grep -rl "JpaRepository\|CrudRepository" "$SRC_DIR/$module" 2>/dev/null \
+    | xargs -I{} basename {} .java 2>/dev/null | sort)
+  if [ -n "$repos" ]; then
+    echo "**Repositories:** $(echo $repos | sed 's/ /, /g')" >> "$OUTPUT"
+  fi
+
+  echo "" >> "$OUTPUT"
+done
