@@ -38,6 +38,9 @@ Thumbs.db
 .env
 .env.local
 
+### Worktrees ###
+.worktrees/
+
 ### NOTE: .vscode/ is INTENTIONALLY NOT IGNORED ###
 # We want to share .vscode/extensions.json and .vscode/settings.json with the team.
 # However, we can ignore local user-specific vscode files if needed:
