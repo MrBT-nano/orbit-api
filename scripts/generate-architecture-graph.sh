@@ -83,3 +83,31 @@ done
 
 echo '```' >> "$OUTPUT"
 echo "" >> "$OUTPUT"
+
+# --- Section 3: Cross-cutting Dependencies ---
+echo "## 3. Cross-cutting Dependencies" >> "$OUTPUT"
+echo "" >> "$OUTPUT"
+echo "| Module | common | config | security |" >> "$OUTPUT"
+echo "|--------|--------|--------|----------|" >> "$OUTPUT"
+
+CROSS_MODULES="common config security"
+for module in "${MODULES[@]}"; do
+  # Skip cross-cutting modules themselves
+  is_cross=false
+  for cross in $CROSS_MODULES; do
+    [ "$module" = "$cross" ] && is_cross=true
+  done
+  $is_cross && continue
+
+  row="| $module"
+  for cross in $CROSS_MODULES; do
+    count=$(grep -rh "^import ${BASE_PKG}\.${cross}\." "$SRC_DIR/$module" 2>/dev/null | wc -l | tr -d ' ')
+    if [ "$count" -gt 0 ]; then
+      row="$row | ✓ ($count)"
+    else
+      row="$row | —"
+    fi
+  done
+  echo "$row |" >> "$OUTPUT"
+done
+echo "" >> "$OUTPUT"
