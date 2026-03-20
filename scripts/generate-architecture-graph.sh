@@ -52,3 +52,34 @@ for module in "${MODULES[@]}"; do
   echo "| $module | $api | $core | $infra | $exc |" >> "$OUTPUT"
 done
 echo "" >> "$OUTPUT"
+
+# --- Section 2: Module Dependency Graph ---
+echo "## 2. Module Dependency Graph" >> "$OUTPUT"
+echo "" >> "$OUTPUT"
+echo '```mermaid' >> "$OUTPUT"
+echo "graph TD" >> "$OUTPUT"
+
+# Collect unique edges using a temp file (bash 3.2 compatible)
+EDGE_TMP=$(mktemp)
+trap "rm -f $EDGE_TMP" EXIT
+
+for module in "${MODULES[@]}"; do
+  if [ -d "$SRC_DIR/$module" ]; then
+    deps=$(grep -rh "^import ${BASE_PKG}\." "$SRC_DIR/$module" 2>/dev/null \
+      | sed "s/import ${BASE_PKG}\.\([a-z_]*\)\..*/\1/" \
+      | sort -u)
+    for dep in $deps; do
+      # Skip self-imports and cross-cutting modules
+      if [ "$dep" != "$module" ] && [ "$dep" != "common" ] && [ "$dep" != "config" ]; then
+        edge="${module}|${dep}"
+        if ! grep -qx "$edge" "$EDGE_TMP" 2>/dev/null; then
+          echo "$edge" >> "$EDGE_TMP"
+          echo "  $module --> $dep" >> "$OUTPUT"
+        fi
+      fi
+    done
+  fi
+done
+
+echo '```' >> "$OUTPUT"
+echo "" >> "$OUTPUT"
