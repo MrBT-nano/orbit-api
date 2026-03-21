@@ -45,7 +45,7 @@ jobs:
             type=raw,value=latest
 
       - name: Build and push orbit-api
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: .
           file: ./api.Dockerfile
@@ -103,7 +103,7 @@ jobs:
             type=raw,value=latest
 
       - name: Build and push orbit-docs
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: .
           file: ./docs.Dockerfile
