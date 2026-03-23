@@ -116,7 +116,7 @@ export default function LandingPage() {
 						<pre className="font-mono text-sm leading-relaxed text-[#F0EDF5] whitespace-pre">
 							<span className="text-[#9B8FB8]">$</span>{" "}
 							<span className="text-[#5DFDCB]">git clone</span>{" "}
-							https://github.com/MrBT-nano/orbit-api.git{"\n"}
+							https://github.com/cntm-labs/orbit-api.git{"\n"}
 							<span className="text-[#9B8FB8]">$</span> <span className="text-[#5DFDCB]">cd</span>{" "}
 							orbit-api{"\n"}
 							<span className="text-[#9B8FB8]">$</span>{" "}

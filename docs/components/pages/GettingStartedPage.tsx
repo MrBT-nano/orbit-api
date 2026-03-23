@@ -84,7 +84,7 @@ export default function GettingStartedPage() {
 						{
 							label: "Terminal",
 							code: `# Clone the repository
-git clone https://github.com/MrBT-nano/orbit-api.git
+git clone https://github.com/cntm-labs/orbit-api.git
 
 # Navigate into the project
 cd orbit-api

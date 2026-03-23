@@ -4,10 +4,10 @@
 
 <h1 align="center">Orbit Personal Finance API</h1>
 
-![CI Pipeline](https://github.com/MrBT-nano/orbit-api/actions/workflows/pre-commit-ci.yml/badge.svg)
-![Docs & Test Coverage](https://github.com/MrBT-nano/orbit-api/actions/workflows/docs-and-tests-cd.yml/badge.svg)
-![CodeQL](https://github.com/MrBT-nano/orbit-api/actions/workflows/codeql.yml/badge.svg)
-[![codecov](https://codecov.io/gh/MrBT-nano/orbit-api/graph/badge.svg?token=p8pQDKGOWm)](https://codecov.io/gh/MrBT-nano/orbit-api)
+![CI Pipeline](https://github.com/cntm-labs/orbit-api/actions/workflows/pre-commit-ci.yml/badge.svg)
+![Docs & Test Coverage](https://github.com/cntm-labs/orbit-api/actions/workflows/docs-and-tests-cd.yml/badge.svg)
+![CodeQL](https://github.com/cntm-labs/orbit-api/actions/workflows/codeql.yml/badge.svg)
+[![codecov](https://codecov.io/gh/cntm-labs/orbit-api/graph/badge.svg?token=p8pQDKGOWm)](https://codecov.io/gh/cntm-labs/orbit-api)
 ![Dependabot](https://img.shields.io/badge/Dependabot-Enabled-blue?logo=dependabot)
 ![Java Version](https://img.shields.io/badge/Java-25-blue?logo=java)
 ![Spring Boot](https://img.shields.io/badge/Spring_Boot-4.0.3-brightgreen?logo=springboot)
@@ -21,7 +21,7 @@ It is built to strict, top 1% engineering standards utilizing a Hexagonal "Packa
 ## 📚 Interactive API Documentation
 This project automatically generates and publishes its Swagger OpenAPI specification to a custom interactive Next.js website. 
 
-👉 **[View Live API Documentation](https://MrBT-nano.github.io/orbit-api/)** *(Link active after first successful GitHub Action deployment)*
+👉 **[View Live API Documentation](https://cntm-labs.github.io/orbit-api/)** *(Link active after first successful GitHub Action deployment)*
 
 ## 🚀 Quick Start (Local Development)
 
@@ -34,7 +34,7 @@ Thanks to `spring-boot-docker-compose`, you do not need to manually configure a 
 
 ```bash
 # Clone the repository
-git clone https://github.com/MrBT-nano/orbit-api.git
+git clone https://github.com/cntm-labs/orbit-api.git
 cd orbit-api
 
 # Run the application

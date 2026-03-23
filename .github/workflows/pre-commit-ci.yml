@@ -40,5 +40,5 @@ jobs:
         uses: codecov/codecov-action@v5.5.3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          slug: MrBT-nano/orbit-api
+          slug: cntm-labs/orbit-api
 

@@ -67,7 +67,7 @@ export default function Navbar({ locale }: { locale: string }) {
 				<LanguageSwitcher locale={locale} />
 
 				<a
-					href="https://github.com/MrBT-nano/orbit-api"
+					href="https://github.com/cntm-labs/orbit-api"
 					target="_blank"
 					rel="noopener noreferrer"
 					className="text-[#9B8FB8] hover:text-[#F0EDF5] transition-colors"
